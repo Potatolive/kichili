@@ -1,0 +1,40 @@
+<ion-view>
+  <ion-nav-title>
+    <img src="img/ionic.png" style="float: left; width: auto; height: 80%; padding-top: 8px"/>
+    <!--<span>Kichili</span>-->
+    <label class="item item-input item-energized" style="border: 0px; border: none; float: left; width: 75%">
+      <input type="text" placeholder="...">
+    </label>
+    <button class="button icon-right ion-search button-clear filter" style="float:right; padding-top: 6px"></button>
+  </ion-nav-title>
+  <!--<ion-subheader-bar class="bar bar-subheader">
+    <h1 class="title">Grocerry</h1>
+  </ion-subheader-bar>
+  <ion-content class="has-subheader">-->
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="product in products">
+        {{product.name}}
+        <span ng-if="product.qty > 0">
+          <button class="button icon-right ion-minus-circled button-clear button-assertive" ng-click="reduceQty(product)"></button>
+        </span>
+        <button class="button icon-right ion-plus-circled button-clear button-assertive" ng-click="addQty(product)">
+          <span ng-if="product.qty > 0" style="padding-right: 15px">
+            {{product.qty}}
+          </span>
+          <span ng-if="product.qty <= 0 || !(product.qty)">
+            Add
+          </span>
+        </button>
+        
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="left" class="bar-assertive">
+    <button class="button icon-left ion-ios-cart button-light">20 items</button>
+    <h1 class="title">Rs.200/-</h1>
+    <div class="buttons" ng-click="go('#app/playlists')">
+      <button class="button icon-right ion-arrow-right-a button-clear button-energized">Checkout</button>
+    </div>
+  </ion-footer-bar>
+</ion-view>
