@@ -1,1 +1,19 @@
 /* Empty. Add your own CSS if you like */
+i:hover {
+  color: #4F8EF7;
+}
+i.active {
+  color: #4F8EF7;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.filter::before {
+	font-size: 25px !important;
+}
+
+.funnel::before {
+	font-size: 20px !important;
+}

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, Categories) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -39,6 +39,8 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
+  $scope.categories = Categories.all();
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -52,5 +54,32 @@ angular.module('starter.controllers', [])
   ];
 })
 
+.controller('ProductsCtrl', function($scope, $stateParams, $location, Products) {
+  $scope.category = {};
+  $scope.category.categoryId = $stateParams.categoryId;
+
+  $scope.products = Products.all($scope.category.categoryId);
+
+  $scope.addQty = function(product) {
+      if(product.qty) product.qty++;
+      else product.qty = 1;
+  };
+
+  $scope.reduceQty = function(product) {
+      if(product.qty > 1) product.qty--;
+      else product.qty = 0;
+  };
+
+  $scope.go = function ( path ) {
+    $location.path( path );
+  };
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
+})
+
+.controller('ContentController', function($scope, $ionicSideMenuDelegate) {
+  $scope.toggleLeft = function() {
+      $ionicSideMenuDelegate.toggleLeft();
+    }
 });
