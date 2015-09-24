@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, Categories) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, Categories) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -41,6 +41,11 @@ angular.module('starter.controllers', [])
   };
 
   $scope.categories = Categories.all();
+
+  $scope.go = function ( id ) {
+    $state.go('app.products', {categoryId: id});
+  };
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -54,25 +59,96 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('ProductsCtrl', function($scope, $stateParams, $location, Products) {
-  $scope.category = {};
+.controller('ProductsCtrl', function($scope, $stateParams, $state, $ionicLoading, Products, focus, Utils) {
+  $scope.init = function() {
+    $scope.category = {};
+    $scope.search = {};
+    $scope.deliveryInfo = {};
+    $scope.deliveryInfo.valid = true;
+  }
+  
+  $scope.init();
+
   $scope.category.categoryId = $stateParams.categoryId;
 
   $scope.products = Products.all($scope.category.categoryId);
 
-  $scope.addQty = function(product) {
-      if(product.qty) product.qty++;
-      else product.qty = 1;
+  $scope.cart = function() {
+    return $scope.products.filter(function (p) {
+        return Number(p.qty) > 0;
+      });
+  }
+
+  $scope.cartTotal = function() {
+    var cartProducts = $scope.cart();
+    var total = 0;
+    cartProducts.forEach(function(product){
+      total = (Number(total) + (Number(product.qty) * Number(product.sellingPrice))).toFixed(2);
+    });
+    return Utils.formatIndianRupee(total);
+  }
+
+  $scope.addQty = function(i) {
+    var product = $scope.products[i];
+    if(product.qty) product.qty++;
+    else product.qty = 1;
   };
 
-  $scope.reduceQty = function(product) {
-      if(product.qty > 1) product.qty--;
-      else product.qty = 0;
+  $scope.reduceQty = function(i) {
+    var product = $scope.products[i];
+    if(product.qty > 1) product.qty--;
+    else product.qty = 0;
   };
 
   $scope.go = function ( path ) {
-    $location.path( path );
+    $state.go(path);
   };
+
+
+  $scope.search.searchMode = false;
+  $scope.search.searchText = '';
+
+  $scope.search.searchModeOn = function() {
+    $scope.search.searchMode = true;
+    focus('searchText');
+    $scope.search.searchText = '';
+  };
+
+  $scope.search.searchModeOff = function() {
+    $scope.search.searchMode = false;
+    $scope.search.searchText = '';
+  };
+
+  $scope.price = function(product) {
+    return Products.price(product);
+  }
+
+  $scope.placeOrder = function(form) {
+    if(form.$valid) {
+      $ionicLoading.show({
+        template: 'Submiting...'
+      });
+      setTimeout(continueExecution, 10000) //wait ten seconds before continuing
+    }
+    else {
+      $scope.deliveryInfo.valid = form.$valid;
+    }
+    
+  }
+
+  
+
+  continueExecution = function() {
+    $scope.init();
+    Products.reset();
+    $ionicLoading.hide();
+    $state.go('app.home');
+  }
+  
+  /*$scope.$watch('delivery.$valid', function(newVal) {
+      $scope.deliveryInfo.valid = newVal;
+  });*/
+
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {

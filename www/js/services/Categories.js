@@ -1,8 +1,8 @@
-angular.module('starter.services', [])
+angular.module('starter.services')
 
 .factory('Categories', function() {
 
-  /*var categories = [
+  var categories = [
     {id: 1, name: "Grocery"},
     {id: 2, name: "Fruits"},
     {id: 3, name: "Vegetables"},
@@ -16,8 +16,8 @@ angular.module('starter.services', [])
   // Might use a resource here that returns a JSON array
   // Some fake testing data
   return {
-    all: function() {
+    all: function(categoryId) {
       return categories;
     }
-  };*/
+  };
 });

@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"cate",
+				"categoryId"
+			],
+			[
+				"cat",
+				"categoryId"
+			],
+			[
 				"fu",
 				"function"
 			],
@@ -19,7 +27,66 @@
 			"file": "www/index.html",
 			"settings":
 			{
-				"buffer_size": 1018,
+				"buffer_size": 1027,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<ion-view>\n  <ion-nav-title>\n    <!--<img src=\"img/ionic.png\" style=\"float: left; width: auto; height: 80%; padding-top: 8px; padding-right: 8px\"/>-->\n    <span>Kichili</span>\n    <!--<label class=\"item item-input item-assertive\" style=\"border: 0px; border: none; float: left; width: 100%\">\n      <input type=\"text\" placeholder=\"Start typing to search\">\n    </label>-->\n    <button class=\"button icon-right ion-search button-clear filter\" style=\"float:right; padding-top: 6px\"></button>\n  </ion-nav-title>\n  <!--<ion-subheader-bar class=\"bar bar-subheader\">\n    <h1 class=\"title\">Grocerry</h1>\n  </ion-subheader-bar>\n  <ion-content class=\"has-subheader\">-->\n  <ion-content>\n    <ion-list>\n      <ion-item ng-repeat=\"product in products\">\n        <div class=\"row\">\n          <div class=\"col-33\">\n            <img src=\"img/ionic.png\" style=\"width: 90%; height: auto; padding: 5px\"></img>\n          </div>\n          <div class=\"col\">\n            <div class=\"row\">\n          <span class=\"col\">\n            {{product.name}}\n          </span>\n        </div>\n        <div class=\"row\">\n          <span class=\"col\" style=\"font-size: small\">\n            {{product.company}}\n          </span>\n        </div>\n        <div class=\"row\" style=\"font-size: medium\">\n            <select class=\"col\" ng-model=\"product.availableQty.value\" ng-options=\"v for v in product.availableQty.values\">\n            </select>\n            <div class=\"col\"></div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col\">\n            <div class=\"row\">\n              <span class=\"col\" style=\"text-decoration: line-through; color: darkgray\" class=\"disabled\">{{product.price}}</span>\n.             <span class=\"col\">{{product.sellingPrice}}</span>\n            </div>\n          </div>\n          <div class=\"col\"></div>\n          <div class=\"col\">\n            <div class=\"row\">\n              <div class=\"col\">\n                <button ng-if=\"product.qty > 0\" class=\"button icon-left ion-minus-circled button-clear button-assertive \" ng-click=\"reduceQty(product)\" style=\"padding: 0px; position: relative; left: 6px\"></button>\n              </div>\n              <div class=\"col\">\n                <button class=\"button icon-right ion-plus-circled button-clear button-assertive\" ng-click=\"addQty(product)\">\n                  <span ng-if=\"product.qty > 0\">{{product.qty}}</span>\n                  <span ng-if=\"product.qty <= 0 || !product.qty\" style=\"position: relative; left:-20px; border-radius: 5px; border-color: red;\">Add</span>\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n          </div>\n        </div>\n      </ion-item>\n    </ion-list>\n  </ion-content>\n  <ion-footer-bar align-title=\"left\" class=\"bar-positive\">\n    <button class=\"button icon-left ion-ios-cart button-postive\">&nbsp;&nbsp;Rs. 200/-</button>\n    <h1 class=\"title\" style=\"font-size: small\">Kichili</h1>\n    <div class=\"buttons\" ng-click=\"go('#app/playlists')\">\n\n      <button class=\"button icon-right ion-arrow-right-c button-light\">\n        <span style=\"padding-right: 5px; font-size: small\">\n          Checkout\n        </span>\n      </button>\n    </div>\n  </ion-footer-bar>\n</ion-view>",
+			"file": "www/templates/products.html",
+			"file_size": 3178,
+			"file_write_time": 1440303400000000,
+			"settings":
+			{
+				"buffer_size": 3180,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/templates/menu.html",
+			"settings":
+			{
+				"buffer_size": 1506,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/js/controllers.js",
+			"settings":
+			{
+				"buffer_size": 2283,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/js/app.js",
+			"settings":
+			{
+				"buffer_size": 2153,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/css/style.css",
+			"settings":
+			{
+				"buffer_size": 363,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/js/services/Products.js",
+			"settings":
+			{
+				"buffer_size": 1533,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/templates/playlists.html",
+			"settings":
+			{
+				"buffer_size": 559,
 				"line_ending": "Unix"
 			}
 		}
@@ -52,6 +119,17 @@
 	},
 	"file_history":
 	[
+		"/Users/home/ionic-projects/kichili/www/js/services/Products.js",
+		"/Users/home/ionic-projects/kichili/www/js/services/Categories.js",
+		"/Users/home/ionic-projects/kichili/www/js/controllers.js",
+		"/Users/home/ionic-projects/kichili/www/js/app.js",
+		"/Users/home/ionic-projects/kichili/www/templates/menu.html",
+		"/Users/home/ionic-projects/kichili/www/templates/products.html",
+		"/Users/home/ionic-projects/kichili/www/js/services/User.js",
+		"/Users/home/ionic-projects/kichili/www/css/style.css",
+		"/Users/home/ionic-projects/kichili/www/templates/products",
+		"/Users/home/ionic-projects/kichili/www/js/services/Categories",
+		"/Users/home/ionic-projects/kichili/www/js/services/User"
 	],
 	"find":
 	{
@@ -70,6 +148,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			";\n",
 			"\"></",
 			"AccountCtrl",
 			"MEAN.io makes building apps simple"
@@ -90,7 +169,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -98,21 +177,215 @@
 					"file": "www/index.html",
 					"settings":
 					{
-						"buffer_size": 1018,
+						"buffer_size": 1027,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								917,
-								921
+								549,
+								549
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "www/templates/products.html",
+					"settings":
+					{
+						"buffer_size": 3180,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3097,
+								3097
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "www/templates/menu.html",
+					"settings":
+					{
+						"buffer_size": 1506,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1113,
+								1113
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "www/js/controllers.js",
+					"settings":
+					{
+						"buffer_size": 2283,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1602,
+								1602
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "www/js/app.js",
+					"settings":
+					{
+						"buffer_size": 2153,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								394,
+								394
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "www/css/style.css",
+					"settings":
+					{
+						"buffer_size": 363,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								363,
+								363
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "www/js/services/Products.js",
+					"settings":
+					{
+						"buffer_size": 1533,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								779,
+								779
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "www/templates/playlists.html",
+					"settings":
+					{
+						"buffer_size": 559,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,

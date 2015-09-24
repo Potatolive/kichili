@@ -1,0 +1,127 @@
+<ion-view>
+  <ion-nav-title>
+    <span>Cart</span>
+  </ion-nav-title>
+  <ion-nav-buttons side="left">
+     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div ng-show="(cart()).length == 0">
+      <span>No items in the cart.</span>
+      <div class="buttons">
+        <a nav-clear menu-close class="button button-assertive" href="#/app/home">Shop
+        </a>
+      </div>
+    </div>
+    <ion-list ng-show="(cart()).length > 0">
+      <ion-item style="margin: 0px; padding: 0px">
+        <div class="row" style="margin: 0px; padding: 0px; padding-bottom: 5px">
+          <div class="col-33" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px; text-align: center; background-color: #E6EEF1">
+            <b>Item</b>
+          </div>
+          <div class="col-20" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px;">
+            <b>Price</b>
+          </div>
+          <div class="col-25" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 0px; margin: 0px; background-color: #D3E6EC; text-align: center">
+             <b>Qty</b>
+          </div>
+          <div class="col" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px; background-color: lightblue; text-align: center">
+            <b>Total</b>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item ng-repeat="product in products" style="margin: 0px; padding: 0px" ng-show="product.qty > 0">
+        <div class="row" style="margin: 0px; padding: 0px">
+          <div class="col-33" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 5px; background-color: #E6EEF1; text-align: center">
+            {{product.name}}
+            <select class="col item item-select item-input" ng-model="product.availableSize.value" ng-options="v for v in product.availableSize.values" style="font-size: small">
+            </select>
+          </div>
+          <div class="col-20" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px; text-align: center; valign: middle;">
+            <span class="col" style="padding-top: 25%">&#8377; {{product.sellingPrice}}</span>
+          </div>
+          <div class="col-25" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 0px; margin: 0px; background-color: #D3E6EC; text-align: center">
+             <div class="row" style="padding: 0px; margin: 0px;">
+              <div class="col-20" style="padding: 0px; margin: 0px; padding-left: 5px">
+                <button ng-if="product.qty > 0" class="button icon-left ion-minus-circled button-clear button-assertive carticon" ng-click="reduceQty($index)" style="padding: 0px;">&nbsp;</button>
+              </div>
+              <div class="col" style="padding: 0px; margin: 0px; margin-left: 10px">
+                <button class="button icon-right ion-plus-circled button-clear button-assertive carticon" ng-click="addQty($index)">
+                  <span ng-if="product.qty > 0">{{product.qty}}</span>
+                  <span ng-if="!product.qty">0</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px; background-color: lightblue; text-align: right; ">
+            <span class="col" style="padding-top: 25%">&#8377; {{price(product)}}</span>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item align-title="left" class="bar-positive">
+        <div class="row" style="font-weight: bold">
+          <div class="col-offset-33 col">
+            Total Price: 
+          </div>
+          <div class="col">
+            &#8377; {{cartTotal()}}
+          </div>
+        </div>
+      </ion-item>
+
+      <ion-item align-title="left" style="color: black">
+        <div class="list">
+          <form name="delivery" role="form" ng-submit="placeOrder(delivery)" novalidate>
+          
+          <label class="item item-input">
+            <span class="input-label">Name*</span>
+            <input type="text" name="name" style="color: black" placeholder="Ram" ng-model="deliveryInfo.name" required>
+          </label>
+          <span class="error" ng-show="!deliveryInfo.valid && delivery.name.$error.required">Name is required!</span>
+          
+          <label class="item item-input">
+            <span class="input-label">Email*</span>
+            <input type="email" style="color: black" placeholder="ram@kichili.com" name="email" ng-model="deliveryInfo.email" required>
+          </label>
+          <span class="error" ng-show="!deliveryInfo.valid && delivery.email.$error.required">Email is required!</span>
+          <span class="error" ng-show="!deliveryInfo.valid && delivery.email.$error.email">Enter a valid email!</span>
+          
+          <label class="item item-input">
+            <span class="input-label">Phone*</span>
+            <input type="number" style="color: black" placeholder="9884618981" required ng-model="deliveryInfo.tel" name="tel" ng-maxlength="11" ng-minlength="10">
+          </label>
+          <span class="error" ng-show="!deliveryInfo.valid && delivery.tel.$error.required">Phone number is required!</span>
+          <span class="error" ng-show="!deliveryInfo.valid && delivery.tel.$error.number">Enter a valid phone number!</span>
+          <span class="error" ng-show="!deliveryInfo.valid && (delivery.tel.$error.minlength || delivery.tel.$error.maxlength)">Enter a valid phone number!</span>
+
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Address</span>
+            <span class="error" ng-show="!deliveryInfo.valid && delivery.addrLine1.$error.required">Address line 1 is required!</span>
+            <input type="text" style="color: black"  placeholder="Appartment, suite, unit, etc.*" required ng-model="deliveryInfo.addressLine1" name="addrLine1">
+            <input type="text" style="color: black" placeholder="Street address">
+          </label>
+          <lablel style="font-size: 10px; color: gray">Currently delivering only in Chennai</label>
+          <label class="item item-input">
+            <span class="input-label">Town/City</span>
+            <input type="text" style="color: black;" disabled placeholder="Town/City" value="Chennai">
+          </label>
+          <div class="row" style="float:right; padding: 0px; margin: 0px; margin-top: 10px">
+            <div class="col col-50 col-offset-50">
+              <button type="submit" class="button icon-right ion-arrow-right-c button-assertive" style="float:right;">Place Order
+              </button>
+            </div>
+          </div>
+          </form>
+        </div>
+      </ion-item>
+
+    </ion-list>
+  </ion-content> 
+  <!--<ion-footer-bar align-title="left" class="bar-positive" ng-show="(cart()).length > 0">
+    <h1 class="title" style="font-size: medium; text-align: left">Total Price: &#8377; {{cartTotal()}}</h1>
+    <div class="buttons">
+      <a class="button icon-right ion-arrow-right-c button-assertive">Place Order
+      </a>
+    </div>
+  </ion-footer-bar>-->
+</ion-view>

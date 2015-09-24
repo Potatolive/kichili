@@ -1,0 +1,24 @@
+<ion-view>
+  <ion-nav-title>
+    <!--<img src="img/ionic.png" style="float: left; width: auto; height: 80%; padding-top: 8px; padding-right: 8px"/>-->
+    <span>Kichili</span>
+    <!--<label class="item item-input item-assertive" style="border: 0px; border: none; float: left; width: 100%">
+      <input type="text" placeholder="Start typing to search">
+    </label>-->
+    <!--<button class="button icon-right ion-search button-clear filter" style="float:right; padding-top: 6px"></button>-->
+  </ion-nav-title>
+  <!--<ion-subheader-bar class="bar bar-subheader">
+    <h1 class="title">Grocerry</h1>
+  </ion-subheader-bar>
+  <ion-content class="has-subheader">-->
+  <ion-content>
+    <ion-list>
+      <ion-item nav-clear menu-close ng-repeat="category in categories" class="item-calm" ng-click="go({{category.id}})">
+        {{category.name}}
+      </ion-item>
+      <ion-item menu-close ng-click="login()" class="item-assertive">
+          <i class="icon ion-arrow-right-c" style="padding-right: 5px"></i>Login
+        </ion-item>
+      </ion-list>
+  </ion-content>
+</ion-view>

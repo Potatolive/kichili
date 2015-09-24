@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ng-cordova', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -41,6 +41,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
+  .state('app.home', {
+    url: '/home',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/home.html',
+        controller: 'AppCtrl'
+      }
+    }
+  })
+
   .state('app.browse', {
       url: '/browse',
       views: {
@@ -67,6 +77,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+.state('app.checkout', {
+      url: '/checkout',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/checkout.html',
+          controller: 'ProductsCtrl'
+        }
+      }
+    })
 
 
   .state('app.single', {
@@ -79,5 +98,35 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/home');
+})
+
+.directive('eventFocus', function(focus) {
+    return function(scope, elem, attr) {
+      elem.on(attr.eventFocus, function() {
+        focus(attr.eventFocusId);
+      });
+
+      // Removes bound events in the element itself
+      // when the scope is destroyed
+      scope.$on('$destroy', function() {
+        elem.off(attr.eventFocus);
+      });
+    };
+  })
+
+.directive( 'goClick', function ( $location ) {
+  return function ( scope, element, attrs ) {
+    var path;
+
+    attrs.$observe( 'goClick', function (val) {
+      path = val;
+    });
+
+    element.bind( 'click', function () {
+      scope.$apply( function () {
+        $location.path( path );
+      });
+    });
+  };
 });
