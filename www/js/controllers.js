@@ -40,7 +40,11 @@ angular.module('starter.controllers', [])
     }, 1000);
   };
 
-  $scope.categories = Categories.all();
+  var categoriesService = Categories.all();
+  categoriesService.then(function(result) {
+    categories = result.data.product_categories;
+    $scope.categories = categories;
+  });
 
   $scope.go = function ( id ) {
     $state.go('app.products', {categoryId: id});
@@ -59,7 +63,7 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('ProductsCtrl', function($scope, $stateParams, $state, $ionicLoading, Products, focus, Utils) {
+.controller('ProductsCtrl', function($scope, $stateParams, $state, $ionicLoading, $ionicScrollDelegate, Products, focus, Utils) {
   $scope.init = function() {
     $scope.category = {};
     $scope.search = {};
@@ -71,20 +75,33 @@ angular.module('starter.controllers', [])
 
   $scope.category.categoryId = $stateParams.categoryId;
 
-  $scope.products = Products.all($scope.category.categoryId);
+  var productsService = Products.getData($scope.category.categoryId);
+  productsService.then(function(result, $ionicScrollDelegate) {
+    console.log('List of products' + result.data.products);
+    $scope.products = result.data.products;
+    $state.go($state.current, {}, {reload: true});
+  });
+
+  //$scope.products = Products.all($scope.category.categoryId);
 
   $scope.cart = function() {
-    return $scope.products.filter(function (p) {
+    if($scope.products) {
+      console.log('Cart Product: ' + $scope.products);
+      return $scope.products.filter(function (p) {
         return Number(p.qty) > 0;
       });
+    }
   }
 
   $scope.cartTotal = function() {
     var cartProducts = $scope.cart();
     var total = 0;
-    cartProducts.forEach(function(product){
-      total = (Number(total) + (Number(product.qty) * Number(product.sellingPrice))).toFixed(2);
-    });
+    if(cartProducts) {
+      cartProducts.forEach(function(product){
+        total = (Number(total) + (Number(product.qty) * Number(product.sellingPrice))).toFixed(2);
+      });  
+    }
+    
     return Utils.formatIndianRupee(total);
   }
 
@@ -135,8 +152,6 @@ angular.module('starter.controllers', [])
     }
     
   }
-
-  
 
   continueExecution = function() {
     $scope.init();

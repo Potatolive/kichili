@@ -1,23 +1,29 @@
 angular.module('starter.services')
 
-.factory('Categories', function() {
+.factory('Categories', function($http, ApiEndpoint) {
 
-  var categories = [
-    {id: 1, name: "Grocery"},
-    {id: 2, name: "Fruits"},
-    {id: 3, name: "Vegetables"},
-    {id: 4, name: "Snack & Bakery"},
-    {id: 5, name: "Stations & Gifts"},
-    {id: 6, name: "Cosmetics"},
-    {id: 7, name: "Beverages"},
-    {id: 8, name: "Plastic & Utensils"}
-  ];
+var categories;
 
-  // Might use a resource here that returns a JSON array
-  // Some fake testing data
+var getData = function() {
+  $http.defaults.headers.common['Authorization'] = ApiEndpoint.authHeader;
+  console.log(ApiEndpoint.url + '/products/categories');
+  return $http({method: 'GET', cache: true, url: ApiEndpoint.url + '/wordpress/wc-api/v3/products/categories'}).
+    success(function(data, status, headers, config) {
+      return data;
+    }).
+    error(function(data, status, headers, config) {
+      //alert(data);
+      console.log(data);
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    });
+  };
+
+  getData();
+
+// Might use a resource here that returns a JSON array
+// Some fake testing data
   return {
-    all: function(categoryId) {
-      return categories;
-    }
+    all: getData
   };
 });

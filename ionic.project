@@ -1,4 +1,11 @@
 {
   "name": "sidemenu-sample",
-  "app_id": ""
+  "app_id": "",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "https://ec2-52-10-172-118.us-west-2.compute.amazonaws.com",
+      "rejectUnauthorized" : false
+    }
+   ]
 }

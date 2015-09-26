@@ -129,4 +129,11 @@ angular.module('starter', ['ionic', 'ng-cordova', 'starter.controllers', 'starte
       });
     });
   };
+})
+
+.constant('ApiEndpoint', {
+  urlLocal: 'http://localhost:8100/api',
+  urlRemote: 'https://ec2-52-10-172-118.us-west-2.compute.amazonaws.com',
+  url: 'http://localhost:8100/api',
+  authHeader: 'Basic ' + window.btoa('ck_923d20802ff5dfac3a720c75c7b1ec6552ae4884:cs_3f9debcce875917a60349bd3d4cac0209807e584')
 });

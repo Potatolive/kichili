@@ -14,19 +14,19 @@
      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-subheader-bar class="bar bar-subheader">
-    <h1 class="title">Grocerry</h1>
+    <h1 class="title"><span ng-bind-html="category.categoryId"></span></h1>
   </ion-subheader-bar>
   <ion-content class="has-subheader">
     <ion-list>
       <ion-item ng-repeat="product in products | filter:search.searchText">
         <div class="row">
           <div class="col-33">
-            <img src="img/ionic.png" style="width: 90%; height: auto; padding: 5px"></img>
+            <img ng-src="{{product.featured_src}}" style="width: 90%; height: auto; max-height: 100px; padding: 5px"></img>
           </div>
           <div class="col">
             <div class="row">
           <span class="col">
-            {{product.name}}
+            {{product.title}}
           </span>
         </div>
         <div class="row">
@@ -35,17 +35,26 @@
           </span>
         </div>
         <div class="row" style="padding-top: 5px; width: 100%; border-width: 1px; border-color: black; border-style: bold">
-            <select class="col item item-select item-input" ng-model="product.availableSize.value" ng-options="v for v in product.availableSize.values">
-            </select>
+            <!--<select class="col item item-select item-input" ng-model="product.availableSize.value" ng-options="v for v in product.availableSize.values">
+            </select>-->
+            <span ng-bind-html="product.short_description"></span>
         </div>
         <div class="row">
           <div class="col" style="padding-top: 5px">
-              <span style="text-decoration: line-through; color: darkgray" class="disabled">&#8377; {{product.price}}</span>
-             <span >/ &#8377; {{product.sellingPrice}}</span>
+              <span style="text-decoration: line-through; color: darkgray" class="disabled">&#8377; {{product.regular_price}}</span>
+             <span >/ &#8377; {{product.sale_price}}</span>
           </div>
-          <div class="col"></div>
+          <!--<div class="col"></div>-->
+          
+        </div>
+        <div class="row">
           <div class="col">
-            <div class="row">
+            
+          </div>
+          <div class="col">
+            
+          </div>
+          
               <div class="col">
                 <button ng-if="product.qty > 0" class="button icon-left ion-minus-circled button-clear button-assertive " ng-click="reduceQty($index)" style="padding: 0px; position: relative; left: -6px"></button>
               </div>
@@ -56,8 +65,6 @@
                 </button>
               </div>
             </div>
-          </div>
-        </div>
         </div>
         </div>
       </ion-item>

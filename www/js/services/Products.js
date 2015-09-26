@@ -1,6 +1,26 @@
 angular.module('starter.services')
 
-.factory('Products', function(Utils) {
+.factory('Products', function(Utils, $http, ApiEndpoint) {
+
+  var getData = function(categorId) {
+    $http.defaults.headers.common['Authorization'] = ApiEndpoint.authHeader;
+
+    if(categorId) {
+      var encodedCategory = escape(categorId.replace(/&amp;/g, '&'));
+      console.log(encodedCategory);
+    }
+    
+    return $http({method: 'GET', cache: false, url: ApiEndpoint.url + '/wordpress/wc-api/v3/products?filter[category]=' + encodedCategory}).
+    success(function(data, status, headers, config) {
+      console.log(data);
+      return data;
+    }).
+    error(function(data, status, headers, config) {
+      console.log(data);
+    });
+  };
+
+  getData();
 
   var productsOriginal = [
     {
@@ -45,7 +65,8 @@ angular.module('starter.services')
     all: function() {
       return products;
     },
-    price: function(product) {
+    getData: getData,
+    /*price: function(product) {
       var x=(Number(product.qty) * Number(product.sellingPrice)).toFixed(2);
       return Utils.formatIndianRupee(x);
     },
@@ -56,7 +77,7 @@ angular.module('starter.services')
     },
     reset: function() {
       products = angular.copy(productsOriginal);
-    }
+    }*/
   }; 
 })
 
