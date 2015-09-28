@@ -1,4 +1,4 @@
-angular.module('starter.services')
+angular.module('utilities', [])
 
 .factory('Utils', function() {
 	return {
@@ -20,6 +20,17 @@ angular.module('starter.services')
 	          lastThree = ',' + lastThree;
 	      var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
 	      return res;
-	    }
+	    },
+	    arrayUnique: function (array) {
+		    var a = array.concat();
+		    for(var i=0; i<a.length; ++i) {
+		        for(var j=i+1; j<a.length; ++j) {
+		            if(a[i] === a[j])
+		                a.splice(j--, 1);
+		        }
+		    }
+
+		    return a;
+		}
 	}
 });

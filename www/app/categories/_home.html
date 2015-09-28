@@ -8,7 +8,7 @@
         <img ng-src="{{category.image}}" style="width:40px; height: 40px;"></img>
         <span ng-bind-html="category.name"></span>
       </ion-item>
-      <ion-item menu-close ng-click="login()" class="item-assertive">
+      <ion-item menu-close ng-click="login()" class="item-assertive" ng-controller="loginCtrl">
           <i class="icon ion-arrow-right-c" style="padding-right: 5px"></i>Login
         </ion-item>
       </ion-list>

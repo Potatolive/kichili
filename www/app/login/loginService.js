@@ -1,6 +1,6 @@
-angular.module('starter.services', [])
+angular.module('login', ['utilities'])
 
-.factory('User', function($timeout, $firebaseAuth) {
+.factory('loginService', function($timeout, $firebaseAuth) {
   // Might use a resource here that returns a JSON array
   var ref  = new Firebase('https://sample-authentication-app.firebaseio.com/');
   var auth = $firebaseAuth(ref);

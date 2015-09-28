@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ng-cordova', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ng-cordova', 'utilities', 'login', 'categories', 'products', 'cart'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -28,15 +28,15 @@ angular.module('starter', ['ionic', 'ng-cordova', 'starter.controllers', 'starte
   .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'CategoriesCtrl'
+    templateUrl: 'app/categories/_menu.html',
+    controller: 'categoriesCtrl'
   })
 .state('app.home', {
     url: '/home',
     views: {
       'menuContent': {
-        templateUrl: 'templates/home.html',
-        controller: 'CategoriesCtrl'
+        templateUrl: 'app/categories/_home.html',
+        controller: 'categoriesCtrl'
       }
     }
   })
@@ -44,8 +44,8 @@ angular.module('starter', ['ionic', 'ng-cordova', 'starter.controllers', 'starte
       url: '/products/:categoryId',
       views: {
         'menuContent': {
-          templateUrl: 'templates/products.html',
-          controller: 'ProductsCtrl'
+          templateUrl: 'app/products/_products.html',
+          controller: 'productsCtrl'
         }
       }
   })
@@ -53,8 +53,8 @@ angular.module('starter', ['ionic', 'ng-cordova', 'starter.controllers', 'starte
       url: '/checkout',
       views: {
         'menuContent': {
-          templateUrl: 'templates/checkout.html',
-          controller: 'ProductsCtrl'
+          templateUrl: 'app/cart/_checkout.html',
+          controller: 'cartCtrl'
         }
       }
   })

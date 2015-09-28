@@ -1,6 +1,6 @@
-angular.module('starter.services')
+angular.module('categories', ['utilities'])
 
-.factory('Categories', function($http, ApiEndpoint) {
+.factory('categoriesService', function($http, ApiEndpoint) {
 
 var categories;
 

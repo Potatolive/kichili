@@ -1,6 +1,6 @@
-angular.module('starter.controllers')
+angular.module('categories')
 
-.controller('CategoriesCtrl', function($scope, $ionicModal, $timeout, $state, Categories) {
+.controller('categoriesCtrl', function($scope, $ionicModal, $timeout, $state, categoriesService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -9,7 +9,7 @@ angular.module('starter.controllers')
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  var categoriesService = Categories.all();
+  var categoriesService = categoriesService.all();
   categoriesService.then(function(result) {
     categories = result.data.product_categories;
     $scope.categories = categories;

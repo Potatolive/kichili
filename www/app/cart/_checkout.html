@@ -6,14 +6,14 @@
      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content>
-    <div ng-show="(cart()).length == 0">
+    <div ng-show="products.length == 0">
       <span>No items in the cart.</span>
       <div class="buttons">
         <a nav-clear menu-close class="button button-assertive" href="#/app/home">Shop
         </a>
       </div>
     </div>
-    <ion-list ng-show="(cart()).length > 0">
+    <ion-list ng-show="products.length > 0">
       <ion-item style="margin: 0px; padding: 0px">
         <div class="row" style="margin: 0px; padding: 0px; padding-bottom: 5px">
           <div class="col-33" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px; text-align: center; background-color: #E6EEF1">
@@ -33,12 +33,14 @@
       <ion-item ng-repeat="product in products" style="margin: 0px; padding: 0px" ng-show="product.qty > 0">
         <div class="row" style="margin: 0px; padding: 0px">
           <div class="col-33" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 5px; background-color: #E6EEF1; text-align: center">
-            {{product.name}}
-            <select class="col item item-select item-input" ng-model="product.availableSize.value" ng-options="v for v in product.availableSize.values" style="font-size: small">
-            </select>
+            {{product.title}}
+            <span ng-bind-html="product.short_description"></span>
+            <!--<select class="col item item-select item-input" ng-model="product.availableSize.value" ng-options="v for v in product.availableSize.values" style="font-size: small">
+            </select>-->
+
           </div>
           <div class="col-20" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px; text-align: center; valign: middle;">
-            <span class="col" style="padding-top: 25%">&#8377; {{product.sellingPrice}}</span>
+            <span class="col" style="padding-top: 25%">&#8377; {{product.sale_price}}</span>
           </div>
           <div class="col-25" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 0px; margin: 0px; background-color: #D3E6EC; text-align: center">
              <div class="row" style="padding: 0px; margin: 0px;">

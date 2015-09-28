@@ -1,6 +1,6 @@
-angular.module('starter.controllers')
+angular.module('login')
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, Categories) {
+.controller('loginCtrl', function($scope, $ionicModal, $timeout, $state) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -13,7 +13,7 @@ angular.module('starter.controllers')
   $scope.loginData = {};
 
   // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
+  $ionicModal.fromTemplateUrl('app/login/_login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;

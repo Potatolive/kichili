@@ -1,6 +1,6 @@
-angular.module('starter.controllers')
+angular.module('products')
 
-.controller('ProductsCtrl', function($scope, $stateParams, $state, $ionicLoading, $ionicScrollDelegate, Products, focus, Utils) {
+.controller('productsCtrl', function($scope, $stateParams, $state, $rootScope, $ionicLoading, $ionicScrollDelegate, productsService, cartService, focus, Utils) {
   $scope.init = function() {
     $scope.category = {};
     $scope.search = {};
@@ -12,29 +12,52 @@ angular.module('starter.controllers')
 
   $scope.category.categoryId = $stateParams.categoryId;
 
-  var productsService = Products.getData($scope.category.categoryId);
-  productsService.then(function(result, $ionicScrollDelegate) {
-    $scope.products = result.data.products;
+  var getData = productsService.getData($scope.category.categoryId);
+  getData.then(function(result, $ionicScrollDelegate) {
+    
+    var catalogProducts = result.data.products;
+    
+    /*var cartProducts = cartService.getProducts().filter(
+        function (el) {
+          el.categories.forEach(
+              function(obj, id) {
+                if(obj === $scope.category.categoryId) return true;
+              }
+            ); 
+          return false;
+        }
+      );
+
+    
+    $scope.products = angular.merge(catalogProducts, cartProducts);
+
+    console.log('cart products');
+    console.log(cartProducts);
+
+    */
+
+    $scope.products = catalogProducts;
+
     $state.go($state.current, {}, {reload: true});
   });
 
   //$scope.products = Products.all($scope.category.categoryId);
 
-  $scope.cart = function() {
-    if($scope.products) {
-      console.log('Cart Product: ' + $scope.products);
-      return $scope.products.filter(function (p) {
+  $scope.cartProducts = function() {
+    var products = $scope.products;
+    if(products) {
+      return products.filter(function (p) {
         return Number(p.qty) > 0;
-      });
+      });  
     }
   }
 
   $scope.cartTotal = function() {
-    var cartProducts = $scope.cart();
+    var cartProducts = $scope.cartProducts();
     var total = 0;
     if(cartProducts) {
       cartProducts.forEach(function(product){
-        total = (Number(total) + (Number(product.qty) * Number(product.sellingPrice))).toFixed(2);
+        total = (Number(total) + (Number(product.qty) * Number(product.sale_price))).toFixed(2);
       });  
     }
     
@@ -72,27 +95,15 @@ angular.module('starter.controllers')
     $scope.search.searchText = '';
   };
 
-  $scope.price = function(product) {
-    return Products.price(product);
-  }
-
-  $scope.placeOrder = function(form) {
-    if(form.$valid) {
-      $ionicLoading.show({
-        template: 'Submiting...'
-      });
-      setTimeout(continueExecution, 10000) //wait ten seconds before continuing
-    }
-    else {
-      $scope.deliveryInfo.valid = form.$valid;
-    }
-    
-  }
-
   continueExecution = function() {
     $scope.init();
-    Products.reset();
     $ionicLoading.hide();
     $state.go('app.home');
   }
+
+  $rootScope.$on("$stateChangeSuccess", function (event, next, current) {
+     console.log('Preserving Data (Product)...');
+     cartService.setProducts($scope.cartProducts()); 
+  });
+
 });
