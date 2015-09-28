@@ -3,8 +3,6 @@ angular.module('starter.services')
 .factory('Utils', function() {
 	return {
 		formatIndianRupee: function(x) {
-			
-
 	      if(isNaN(x)) {
 	        return "0.00";
 	      }
