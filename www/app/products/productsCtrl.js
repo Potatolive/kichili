@@ -1,45 +1,36 @@
 angular.module('products')
 
-.controller('productsCtrl', function($scope, $stateParams, $state, $rootScope, $ionicLoading, $ionicScrollDelegate, productsService, cartService, focus, Utils) {
+.controller('productsCtrl', function($scope, $stateParams, $state, $rootScope, $ionicScrollDelegate, productsService, cartService, focus, Utils) {
   $scope.init = function() {
     $scope.category = {};
     $scope.search = {};
     $scope.deliveryInfo = {};
     $scope.deliveryInfo.valid = true;
+    $scope.resetSession = false;
+    $scope.products = [];
+    initData();
   }
   
   $scope.init();
 
-  $scope.category.categoryId = $stateParams.categoryId;
+  $scope.category.categoryId = '';  
+  
+  if($scope.category && $stateParams.categoryId) {
+    $scope.category.categoryId = $stateParams.categoryId;  
+  }
+  
 
-  var getData = productsService.getData($scope.category.categoryId);
-  getData.then(function(result, $ionicScrollDelegate) {
+  function initData() { 
+    var getData = productsService.getData($stateParams.categoryId);
+    getData.then(function(result, $ionicScrollDelegate) {
     
     var catalogProducts = result.data.products;
     
-    /*var cartProducts = cartService.getProducts().filter(
-        function (el) {
-          el.categories.forEach(
-              function(obj, id) {
-                if(obj === $scope.category.categoryId) return true;
-              }
-            ); 
-          return false;
-        }
-      );
-
-    
-    $scope.products = angular.merge(catalogProducts, cartProducts);
-
-    console.log('cart products');
-    console.log(cartProducts);
-
-    */
-
     $scope.products = catalogProducts;
 
     $state.go($state.current, {}, {reload: true});
   });
+}
 
   //$scope.products = Products.all($scope.category.categoryId);
 
@@ -95,15 +86,16 @@ angular.module('products')
     $scope.search.searchText = '';
   };
 
-  continueExecution = function() {
-    $scope.init();
-    $ionicLoading.hide();
-    $state.go('app.home');
-  }
+  $scope.$on("$stateChangeSuccess", function (event, next, current) {
+    if(!$scope.resetSession) {
+      console.log('Preserving Data (Product)...');
+      cartService.setProducts($scope.cartProducts());
+    }
+  });
 
-  $rootScope.$on("$stateChangeSuccess", function (event, next, current) {
-     console.log('Preserving Data (Product)...');
-     cartService.setProducts($scope.cartProducts()); 
+  $rootScope.$on('resetSessionData', function () {
+    $scope.resetSession = true;
+    $scope.init();     
   });
 
 });

@@ -1,6 +1,6 @@
 angular.module('cart', ['utilities'])
 
-.factory('cartService', function(Utils, $http, ApiEndpoint, Utils) {
+.factory('cartService', function(Utils, $rootScope, $http, ApiEndpoint, Utils) {
 
   var products = [];
 
@@ -8,28 +8,22 @@ angular.module('cart', ['utilities'])
   // Some fake testing data
   return {
     setProducts: function(value) {
-      console.log('Before');
-      if(products && products[0]) 
-      {
-        console.log(products[0].title);
-        console.log(products[0].$$hashKey);
-        console.log(products[0].id);
-        console.log(products);
-      }
-      
       products = Utils.arrayUnique(products.concat(value));
-      console.log('After');
-      
-      if(products && products[0]) 
-      {
-        console.log(products[0].title);
-        console.log(products[0].$$hashKey);
-        console.log(products[0].id);
-        console.log(products);
-      }
     },
     getProducts: function() {
-      return angular.copy(products);
+      //return angular.copy(products);
+      if(products) {
+        return products.filter(function (p) {
+          return Number(p.qty) > 0;
+        });  
+      }
+    },
+    clearProducts: function() {
+      products = [];
     }
   }; 
+
+  $rootScope.$on('resetSessionData', function () {
+    clearProducts();
+  });
 });

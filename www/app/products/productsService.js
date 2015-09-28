@@ -5,8 +5,10 @@ angular.module('products', ['utilities'])
   var getData = function(categorId) {
     $http.defaults.headers.common['Authorization'] = ApiEndpoint.authHeader;
 
+    var encodedCategory = '';
+
     if(categorId) {
-      var encodedCategory = escape(categorId.replace(/&amp;/g, '&'));
+      encodedCategory = escape(categorId.replace(/&amp;/g, '&'));
       console.log(encodedCategory);
     }
     
