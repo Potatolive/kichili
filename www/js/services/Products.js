@@ -20,7 +20,7 @@ angular.module('starter.services')
     });
   };
 
-  getData();
+  //getData();
 
   var productsOriginal = [
     {
