@@ -74,7 +74,7 @@
           
           <label class="item item-input">
             <span class="input-label">Name*</span>
-            <input type="text" name="name" style="color: black" placeholder="Ram" ng-model="deliveryInfo.name" required>
+            <input type="text" name="name" style="color: black" placeholder="Ram" ng-model="deliveryInfo.first_name" required>
           </label>
           <span class="error" ng-show="!deliveryInfo.valid && delivery.name.$error.required">Name is required!</span>
           
@@ -87,23 +87,30 @@
           
           <label class="item item-input">
             <span class="input-label">Phone*</span>
-            <input type="number" style="color: black" placeholder="9884618981" required ng-model="deliveryInfo.tel" name="tel" ng-maxlength="11" ng-minlength="10">
+            <input type="number" style="color: black" placeholder="9884618981" ng-model="deliveryInfo.phone" name="phone" required ng-maxlength="11" ng-minlength="10">
           </label>
-          <span class="error" ng-show="!deliveryInfo.valid && delivery.tel.$error.required">Phone number is required!</span>
-          <span class="error" ng-show="!deliveryInfo.valid && delivery.tel.$error.number">Enter a valid phone number!</span>
-          <span class="error" ng-show="!deliveryInfo.valid && (delivery.tel.$error.minlength || delivery.tel.$error.maxlength)">Enter a valid phone number!</span>
+          <span class="error" ng-show="!deliveryInfo.valid && delivery.phone.$error.required">Phone number is required!</span>
+          <span class="error" ng-show="!deliveryInfo.valid && delivery.phone.$error.number">Enter a valid phone number!</span>
+          <span class="error" ng-show="!deliveryInfo.valid && (delivery.phone.$error.minlength || delivery.phone.$error.maxlength)">Enter a valid phone number!</span>
 
           <label class="item item-input item-stacked-label">
             <span class="input-label">Address</span>
-            <span class="error" ng-show="!deliveryInfo.valid && delivery.addrLine1.$error.required">Address line 1 is required!</span>
-            <input type="text" style="color: black"  placeholder="Appartment, suite, unit, etc.*" required ng-model="deliveryInfo.addressLine1" name="addrLine1">
-            <input type="text" style="color: black" placeholder="Street address">
+            <span class="error" ng-show="!deliveryInfo.valid && delivery.address_1.$error.required">Address line 1 is required!</span>
+            <input type="text" style="color: black"  placeholder="Appartment, suite, unit, etc.*" required ng-model="deliveryInfo.address_1" name="address_1">
+            <input type="text" style="color: black" placeholder="Street address" ng-model="deliveryInfo.address_2" name="address_2">
           </label>
           <lablel style="font-size: 10px; color: gray">Currently delivering only in Chennai</label>
           <label class="item item-input">
             <span class="input-label">Town/City</span>
-            <input type="text" style="color: black;" disabled placeholder="Town/City" value="Chennai">
+            <input type="text" style="color: black;" disabled placeholder="Town/City" value="" ng-model="deliveryInfo.city" name="city">
           </label>
+          <label class="item item-input">
+            <span class="input-label">Pincode</span>
+            <input type="number" style="color: black;" placeholder="Pincode" value="" ng-model="deliveryInfo.postcode" name="postcode" required ng-maxlength="6" ng-minlength="6">
+          </label>
+          <span class="error" ng-show="!deliveryInfo.valid && delivery.postcode.$error.required">Pincode is required!</span>
+          <span class="error" ng-show="!deliveryInfo.valid && delivery.postcode.$error.number">Enter a valid pincode!</span>
+          <span class="error" ng-show="!deliveryInfo.valid && (delivery.postcode.$error.minlength || delivery.phone.$error.maxlength)">Enter a valid pincode!</span>
           <div class="row" style="float:right; padding: 0px; margin: 0px; margin-top: 10px">
             <div class="col col-50 col-offset-50">
               <button type="submit" class="button icon-right ion-arrow-right-c button-assertive" style="float:right;">Place Order

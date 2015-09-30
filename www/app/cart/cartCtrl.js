@@ -6,6 +6,17 @@ angular.module('cart')
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
+
+  var init = function() {
+    $scope.products = [];
+    cartService.clearProducts();
+    $scope.deliveryInfo = {};
+    $scope.deliveryInfo.city = "Chennai";
+    $scope.deliveryInfo.state = "TN";
+    $scope.deliveryInfo.country = "India";
+    $scope.deliveryInfo.valid = true;
+  }
+
   $scope.$on('$ionicView.enter', function(e) {
     $scope.products = cartService.getProducts();
   });
@@ -47,31 +58,29 @@ angular.module('cart')
     }
   }
 
-  $scope.deliveryInfo = {};
-  $scope.deliveryInfo.valid = true;
+  init();  
 
   $scope.placeOrder = function(form) {
     if(form.$valid) {
       $ionicLoading.show({
         template: 'Submiting...'
       });
-      setTimeout(continueExecution, 1000) //wait a seconds before continuing
+      
+      var placedOrder = cartService.placeOrder($scope.deliveryInfo);
+      placedOrder.then(function(result) {
+        continueExecution();
+      });
     }
     else {
       $scope.deliveryInfo.valid = form.$valid;
     }
-    $scope.products = [];
-    cartService.clearProducts();
   }
 
   continueExecution = function() {
-    $scope.products = [];
-    cartService.clearProducts();
-    $scope.deliveryInfo = {};
-    $scope.deliveryInfo.valid = true;
+    init();
     $rootScope.$broadcast('resetSessionData');
     $ionicLoading.hide();
-    $state.go('app.home');
+    $state.go('app.orderTracking');
   }
 
 });
