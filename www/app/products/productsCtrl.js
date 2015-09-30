@@ -1,6 +1,6 @@
 angular.module('products')
 
-.controller('productsCtrl', function($scope, $stateParams, $state, $rootScope, $ionicScrollDelegate, productsService, cartService, focus, Utils) {
+.controller('productsCtrl', function($scope, $stateParams, $state, $rootScope, $ionicScrollDelegate, $ionicLoading, productsService, cartService, focus, Utils) {
   $scope.init = function() {
     $scope.category = {};
     $scope.search = {};
@@ -21,16 +21,17 @@ angular.module('products')
   
 
   function initData() { 
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
     var getData = productsService.getData($stateParams.categoryId);
     getData.then(function(result, $ionicScrollDelegate) {
-    
-    var catalogProducts = result.data.products;
-    
-    $scope.products = catalogProducts;
-
-    $state.go($state.current, {}, {reload: true});
-  });
-}
+      var catalogProducts = result.data.products;
+      $scope.products = catalogProducts;
+      $state.go($state.current, {}, {reload: true});
+      $ionicLoading.hide();
+    });
+  }
 
   //$scope.products = Products.all($scope.category.categoryId);
 

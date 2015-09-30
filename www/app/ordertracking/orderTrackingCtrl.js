@@ -12,10 +12,14 @@ angular.module('orderTracking')
   }
 
   $scope.$on('$ionicView.enter', function(e) {
+    $ionicLoading.show({
+        template: 'Loading...'
+      });
     var service = orderTrackingService.getData();
       service.then(function(result) {
         orders = result.data.orders;
         $scope.orders = orders;
+        $ionicLoading.hide();
       });  
   });
 

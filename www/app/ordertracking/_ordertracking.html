@@ -6,9 +6,25 @@
      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content>
+    <div>
+      <div class="buttons">
+        <a nav-clear menu-close class="button button-assertive" href="#/app/home">Shop
+        </a>
+      </div>
+    </div>
     <ion-list>
-      <ion-item nav-clear menu-close ng-repeat="order in orders" class="item-calm" ng-click="go('{{order.id}}')">
-        {{order.id}}
+      <ion-item nav-clear menu-close ng-repeat="order in orders" style="margin: 0px; padding: 0px" >
+        <div class="row" style="margin: 0px; padding: 0px">
+          <div class="col-33" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 5px; background-color: #E6EEF1; text-align: center">
+            {{order.id}}
+          </div>
+          <div class="col-20" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px; text-align: center; valign: middle;">
+            <span class="col" style="padding-top: 25%">&#8377; {{order.total}}</span>
+          </div>
+          <div class="col-20" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px; text-align: center; valign: middle;">
+            <span class="col" style="padding-top: 25%">{{order.status}}</span>
+          </div>
+        </div>
       </ion-item>
   </ion-content> 
 </ion-view>
