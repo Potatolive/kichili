@@ -40,7 +40,7 @@
               <div class="row">
                 <div class="col-33"> {{options.name}}</div>
                 <div class="col-70"> 
-                  <select class="item item-select item-input" ng-model="product.options[key(options)].selectedItem" ng-options="v as v.value for v in options.options">
+                  <select class="item item-select item-input" ng-model="product.options[options.name].selectedItem" ng-options="v as v.name for v in options.options">
                   </select>
                 </div>
               </div>
@@ -48,32 +48,25 @@
           </div>
           <span ng-bind-html="product.short_description"></span>
         </div>
-        <div class="row">
+        <div class="row" ng-show="isVariationSelectect(product)">
           <div class="col" style="padding-top: 5px">
-              <span style="text-decoration: line-through; color: darkgray" class="disabled">&#8377; {{product.regular_price}}</span>
-             <span >/ &#8377; {{product.sale_price}}</span>
+            <span style="text-decoration: line-through; color: darkgray" class="disabled">&#8377; {{selectedVariation(product).regular_price}}</span>
+            <span >/ &#8377; {{selectedVariation(product).sale_price}}</span>
           </div>
-          <!--<div class="col"></div>-->
-          
         </div>
-        <div class="row">
-          <div class="col">
-            
-          </div>
-          <div class="col">
-            
-          </div>
-          
-              <div class="col">
-                <button ng-if="product.qty > 0" class="button icon-left ion-minus-circled button-clear button-assertive " ng-click="reduceQty($index)" style="padding: 0px; position: relative; left: -6px"></button>
-              </div>
-              <div class="col">
-                <button class="button icon-right ion-plus-circled button-clear button-assertive" ng-click="addQty($index)">
-                  <span ng-if="product.qty > 0" style="position: relative; left:-8px;">{{product.qty}}</span>
-                  <span ng-if="product.qty <= 0 || !product.qty" style="position: relative; left:-20px; border-radius: 5px; border-color: red;">Add</span>
-                </button>
-              </div>
+        <div class="row" ng-show="isVariationSelectect(product)">
+          <div class="col"></div>
+          <div class="col"></div>
+            <div class="col">
+              <button ng-if="product.qty > 0" class="button icon-left ion-minus-circled button-clear button-assertive " ng-click="reduceQty($index)" style="padding: 0px; position: relative; left: -6px"></button>
             </div>
+            <div class="col">
+              <button class="button icon-right ion-plus-circled button-clear button-assertive" ng-click="addQty($index)">
+                <span ng-if="product.qty > 0" style="position: relative; left:-8px;">{{product.qty}}</span>
+                <span ng-if="product.qty <= 0 || !product.qty" style="position: relative; left:-20px; border-radius: 5px; border-color: red;">Add</span>
+              </button>
+            </div>
+          </div>
         </div>
         </div>
       </ion-item>

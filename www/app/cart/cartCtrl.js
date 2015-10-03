@@ -35,7 +35,41 @@ angular.module('cart')
   };
 
   $scope.price = function(product) {
-    return (Number(product.qty) * Number(product.sale_price)).toFixed(2);
+    if (!product.variations || product.variations.length == 0) {
+      return product.sale_price;
+    }
+    else if (product.variations && product.variations.length > 0 && product.selectedVariation) {
+      return product.selectedVariation.sale_price;
+    }
+  }
+
+  $scope.totalPrice = function(product) {
+    return (Number(product.qty) * Number($scope.price(product))).toFixed(2);
+  }
+
+  $scope.selectedVariation = function(product) {
+    var price = {"regular_price": product.regular_price, "sale_price": product.sale_price};
+    if(product.variations && product.variations.length > 0) {
+      product.selectedVariation = undefined;
+      product.variations.forEach(function(variation) {
+        var variationFound = variation.attributes && variation.attributes.length > 0;
+        if(variationFound) {
+          variation.attributes.forEach(function(attribute) {
+            if(!product.options[attribute.name].selectedItem || product.options[attribute.name].selectedItem.name != attribute.option) {
+              variationFound = false;
+            }
+          });
+          if(variationFound) {
+            price.regular_price = variation.regular_price;
+            price.sale_price = variation.sale_price;
+            product.selectedVariation = variation;
+            return price;
+          }  
+        }
+      });
+      if(!product.selectedVariation) product.qty = 0;
+    }
+    return price;
   }
 
   $scope.cartTotal = function() {
@@ -43,7 +77,8 @@ angular.module('cart')
     var total = 0;
     if(cartProducts) {
       cartProducts.forEach(function(product){
-        total = (Number(total) + (Number(product.qty) * Number(product.sale_price))).toFixed(2);
+        var price = $scope.selectedVariation(product);
+        total = (Number(total) + (Number(product.qty) * Number(price.sale_price))).toFixed(2);
       });
     }
     
@@ -74,7 +109,6 @@ angular.module('cart')
           $ionicLoading.hide();
         },
         function(error) {
-          console.log(error);
           $scope.error.message = "Cannot place order at this moment. Please try later!"
           $ionicLoading.hide();
         }

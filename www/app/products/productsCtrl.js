@@ -35,12 +35,34 @@ angular.module('products')
     });
   }
 
-  //$scope.products = Products.all($scope.category.categoryId);
+  $scope.isVariationSelectect = function(product) {
+    return (!product.variations || product.variations.length == 0 || (product.variations && product.variations.length > 0 && product.selectedVariation));
+  }
 
-  $scope.key = function(obj){
-        // some unique object-dependent key
-        return obj.name; // just an example
-  };
+  $scope.selectedVariation = function(product) {
+    var price = {"regular_price": product.regular_price, "sale_price": product.sale_price};
+    if(product.variations && product.variations.length > 0) {
+      product.selectedVariation = undefined;
+      product.variations.forEach(function(variation) {
+        var variationFound = variation.attributes && variation.attributes.length > 0;
+        if(variationFound) {
+          variation.attributes.forEach(function(attribute) {
+            if(!product.options[attribute.name].selectedItem || product.options[attribute.name].selectedItem.name != attribute.option) {
+              variationFound = false;
+            }
+          });
+          if(variationFound) {
+            price.regular_price = variation.regular_price;
+            price.sale_price = variation.sale_price;
+            product.selectedVariation = variation;
+            return price;
+          }  
+        }
+      });
+      if(!product.selectedVariation) product.qty = 0;
+    }
+    return price;
+  }
 
   $scope.cartProducts = function() {
     var products = $scope.products;
@@ -56,7 +78,8 @@ angular.module('products')
     var total = 0;
     if(cartProducts) {
       cartProducts.forEach(function(product){
-        total = (Number(total) + (Number(product.qty) * Number(product.sale_price))).toFixed(2);
+        var price = $scope.selectedVariation(product);
+        total = (Number(total) + (Number(product.qty) * Number(price.sale_price))).toFixed(2);
       });  
     }
     
@@ -64,6 +87,7 @@ angular.module('products')
   }
 
   $scope.addQty = function(i) {
+
     var product = $scope.products[i];
     if(product.qty) product.qty++;
     else product.qty = 1;
@@ -96,7 +120,7 @@ angular.module('products')
 
   $scope.$on("$stateChangeSuccess", function (event, next, current) {
     if(!$scope.resetSession) {
-      console.log('Preserving Data (Product)...');
+      console.log($scope.cartProducts());
       cartService.setProducts($scope.cartProducts());
     }
   });

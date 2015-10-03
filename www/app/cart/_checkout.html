@@ -38,7 +38,7 @@
             <span ng-bind-html="product.short_description"></span>
           </div>
           <div class="col-20" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px; text-align: center; valign: middle;">
-            <span class="col" style="padding-top: 25%">&#8377; {{product.sale_price}}</span>
+            <span class="col" style="padding-top: 25%">&#8377; {{price(product)}}</span>
           </div>
           <div class="col-25" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 0px; margin: 0px; background-color: #D3E6EC; text-align: center">
              <div class="row" style="padding: 0px; margin: 0px;">
@@ -54,7 +54,7 @@
             </div>
           </div>
           <div class="col" style="word-wrap: break-word; white-space:normal; font-size: small; padding: 2px; background-color: lightblue; text-align: right; ">
-            <span class="col" style="padding-top: 25%">&#8377; {{price(product)}}</span>
+            <span class="col" style="padding-top: 25%">&#8377; {{totalPrice(product)}}</span>
           </div>
         </div>
       </ion-item>

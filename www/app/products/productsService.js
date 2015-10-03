@@ -27,11 +27,6 @@ angular.module('products', ['utilities'])
     getData: getData,
     explodeVariation: function(products) {
 
-      var key = function(obj){
-        // some unique object-dependent key
-        return obj.name; // just an example
-      };
-
       console.log('expoding variations');
       products.forEach(function(product){
         var variations = product.variations;
@@ -42,17 +37,17 @@ angular.module('products', ['utilities'])
             var attributes = variation.attributes;
             if(attributes) {
               attributes.forEach(function(attribute) {
-                var option = {"name": attribute.name, "options": []};
-                var variation = {"value": attribute.option};
+                var option = {"name": attribute.name, "options": {}};
+                var variation = {"name": attribute.option};
 
-                if(!options[key(option)]) {
-                  option.options.push(variation);
-                  options[key(option)] = option;  
+                if(!options[option.name]) {
+                  option.options[variation.name] = variation;
+                  options[option.name] = option;  
                 }
                 else {
-                  if(options[key(option)].options.indexOf(attribute.option) < 0) {
-                    options[key(option)].options.push(variation)   
-                  } 
+                  if(!options[option.name].options[variation.name]) {
+                    options[option.name].options[variation.name] = variation;     
+                  }
                 }
               });
             }

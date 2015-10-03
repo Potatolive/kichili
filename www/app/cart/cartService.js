@@ -63,7 +63,6 @@ angular.module('cart', ['utilities'])
       products = Utils.arrayUnique(products.concat(value));
     },
     getProducts: function() {
-      //return angular.copy(products);
       if(products) {
         return products.filter(function (p) {
           return Number(p.qty) > 0;
@@ -83,7 +82,11 @@ angular.module('cart', ['utilities'])
       console.log(order.line_items);
 
       products.forEach(function(product){
-        lineitem = {"product_id": product.id, "quantity": product.qty}
+        var id = product.id;
+        if(product.selectedVariation) {
+          id = product.selectedVariation.id;
+        }
+        lineitem = {"product_id": id, "quantity": product.qty}
         order.line_items.push(lineitem);
         console.log(lineitem);
       });
