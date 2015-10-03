@@ -27,13 +27,20 @@ angular.module('products')
     var getData = productsService.getData($stateParams.categoryId);
     getData.then(function(result, $ionicScrollDelegate) {
       var catalogProducts = result.data.products;
-      $scope.products = catalogProducts;
+
+      $scope.products = productsService.explodeVariation(catalogProducts);
+
       $state.go($state.current, {}, {reload: true});
       $ionicLoading.hide();
     });
   }
 
   //$scope.products = Products.all($scope.category.categoryId);
+
+  $scope.key = function(obj){
+        // some unique object-dependent key
+        return obj.name; // just an example
+  };
 
   $scope.cartProducts = function() {
     var products = $scope.products;

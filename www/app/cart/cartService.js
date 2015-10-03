@@ -5,7 +5,6 @@ angular.module('cart', ['utilities'])
   var products = [];
 
   var sampleOrder = {
-    "order": {
       "payment_details": {
         "method_id": "COD",
         "method_title": "Cash On Delivery",
@@ -42,18 +41,18 @@ angular.module('cart', ['utilities'])
           "quantity": 2
         }*/
       ]
-    }
-  }
+    };
 
   var postOrder = function(order) {
     $http.defaults.headers.common['Authorization'] = ApiEndpoint.authHeader;
 
-    return $http({method: 'POST', url: ApiEndpoint.url + '/wordpress/wc-api/v3/orders', data: order, headers: {'Content-Type': 'application/json'}}).
+    return $http({method: 'POST', url: ApiEndpoint.url + '/wordpress/wc-api/v3/orders', data: {'order': order}, headers: {'Content-Type': 'application/json'}}).
     success(function(data, status, headers, config) {
       return data;
     }).
     error(function(data, status, headers, config) {
       console.log(data);
+      return data;
     });
   };
 
@@ -81,13 +80,25 @@ angular.module('cart', ['utilities'])
 
       var order = sampleOrder;
 
-      console.log(order.order.line_items);
+      console.log(order.line_items);
 
       products.forEach(function(product){
         lineitem = {"product_id": product.id, "quantity": product.qty}
-        order.order.line_items.push(lineitem);
+        order.line_items.push(lineitem);
         console.log(lineitem);
       });
+
+      order.shipping_address.first_name = deliveryInfo.first_name;
+      order.shipping_address.address_1 = deliveryInfo.address_1;
+      order.shipping_address.address_2 = deliveryInfo.address_2;
+      order.shipping_address.city = deliveryInfo.city;
+      order.shipping_address.state = deliveryInfo.state;
+      order.shipping_address.postcode = deliveryInfo.postcode;
+      order.shipping_address.country = deliveryInfo.country;
+      order.shipping_address.email = deliveryInfo.email;
+      order.shipping_address.postcode = deliveryInfo.post;
+
+      order.billing_address = order.shipping_address;
 
       console.log(order);
 

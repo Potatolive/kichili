@@ -15,6 +15,7 @@ angular.module('cart')
     $scope.deliveryInfo.state = "TN";
     $scope.deliveryInfo.country = "India";
     $scope.deliveryInfo.valid = true;
+    $scope.error = {};
   }
 
   $scope.$on('$ionicView.enter', function(e) {
@@ -67,9 +68,17 @@ angular.module('cart')
       });
       
       var placedOrder = cartService.placeOrder($scope.deliveryInfo);
-      placedOrder.then(function(result) {
-        continueExecution();
-      });
+      placedOrder.then(
+        function(success) {
+          continueExecution();
+          $ionicLoading.hide();
+        },
+        function(error) {
+          console.log(error);
+          $scope.error.message = "Cannot place order at this moment. Please try later!"
+          $ionicLoading.hide();
+        }
+      );
     }
     else {
       $scope.deliveryInfo.valid = form.$valid;
@@ -79,7 +88,6 @@ angular.module('cart')
   continueExecution = function() {
     init();
     $rootScope.$broadcast('resetSessionData');
-    $ionicLoading.hide();
     $state.go('app.orderTracking');
   }
 

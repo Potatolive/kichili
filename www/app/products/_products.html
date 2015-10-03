@@ -24,8 +24,8 @@
             <img ng-src="{{product.featured_src}}" style="width: 90%; height: auto; max-height: 100px; padding: 5px"></img>
           </div>
           <div class="col">
-            <div class="row">
-          <span class="col">
+            <div class="row" style="padding-bottom: 10px">
+            <span class="col">
             {{product.title}}
           </span>
         </div>
@@ -34,10 +34,19 @@
             {{product.company}}
           </span>
         </div>
-        <div class="row" style="padding-top: 5px; width: 100%; border-width: 1px; border-color: black; border-style: bold">
-            <!--<select class="col item item-select item-input" ng-model="product.availableSize.value" ng-options="v for v in product.availableSize.values">
-            </select>-->
-            <span ng-bind-html="product.short_description"></span>
+        <div class="row">
+          <div class="col">
+            <ion-item ng-repeat="options in product.options" style="border: 0px; padding: 0px">
+              <div class="row">
+                <div class="col-33"> {{options.name}}</div>
+                <div class="col-70"> 
+                  <select class="item item-select item-input" ng-model="product.options[key(options)].selectedItem" ng-options="v as v.value for v in options.options">
+                  </select>
+                </div>
+              </div>
+            </ion-item>
+          </div>
+          <span ng-bind-html="product.short_description"></span>
         </div>
         <div class="row">
           <div class="col" style="padding-top: 5px">

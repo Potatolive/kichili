@@ -6,6 +6,7 @@
      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content>
+    <div ng-show="error.message" style="background-color: yellow">{{error.message}}</div>
     <div ng-show="cartProducts().length == 0">
       <span>No items in the cart.</span>
       <div class="buttons">
