@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ng-cordova', 'utilities', 'login', 'categories', 'products', 'cart', 'orderTracking'])
+angular.module('starter', ['ionic', 'ng-cordova', 'utilities', 'region', 'login', 'categories', 'products', 'cart', 'orderTracking'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -31,14 +31,23 @@ angular.module('starter', ['ionic', 'ng-cordova', 'utilities', 'login', 'categor
     templateUrl: 'app/categories/_menu.html',
     controller: 'categoriesCtrl'
   })
-.state('app.home', {
-    url: '/home',
+.state('app.categories', {
+    url: '/categores',
     views: {
       'menuContent': {
         templateUrl: 'app/categories/_home.html',
         controller: 'categoriesCtrl'
       }
     }
+  })
+  .state('app.region', {
+      url: '/region',
+      views: {
+        'menuContent': {
+          templateUrl: 'app/region/_pincode.html',
+          controller: 'regionCtrl'
+        }
+      }
   })
   .state('app.products', {
       url: '/products/:categoryId',
@@ -69,7 +78,7 @@ angular.module('starter', ['ionic', 'ng-cordova', 'utilities', 'login', 'categor
   })
   ;
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/region');
 })
 
 .directive('eventFocus', function(focus) {
@@ -104,7 +113,7 @@ angular.module('starter', ['ionic', 'ng-cordova', 'utilities', 'login', 'categor
 
 .constant('ApiEndpoint', {
   urlLocal: 'http://localhost:8100/api',
-  urlRemote: 'https://ec2-52-10-172-118.us-west-2.compute.amazonaws.com',
-  url: 'http://localhost:8100/api',
-  authHeader: 'Basic ' + window.btoa('ck_923d20802ff5dfac3a720c75c7b1ec6552ae4884:cs_3f9debcce875917a60349bd3d4cac0209807e584')
+  urlRemote: 'https://ec2-52-88-140-24.us-west-2.compute.amazonaws.com',
+  url: 'https://ec2-52-88-140-24.us-west-2.compute.amazonaws.com',
+  authHeader: 'Basic ' + window.btoa('ck_52c09bea2580a0308602af980e13e39a3eef54eb:cs_46d42626408ee30285ccd2841df56d999d0cf682')
 });

@@ -99,7 +99,7 @@ angular.module('cart', ['utilities'])
       order.shipping_address.postcode = deliveryInfo.postcode;
       order.shipping_address.country = deliveryInfo.country;
       order.shipping_address.email = deliveryInfo.email;
-      order.shipping_address.postcode = deliveryInfo.post;
+      order.shipping_address.postcode = deliveryInfo.postcode;
 
       order.billing_address = order.shipping_address;
 

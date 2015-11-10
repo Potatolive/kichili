@@ -12,7 +12,7 @@ angular.module('products', ['utilities'])
       console.log(encodedCategory);
     }
     
-    return $http({method: 'GET', cache: false, url: ApiEndpoint.url + '/wordpress/wc-api/v3/products?filter[category]=' + encodedCategory}).
+    return $http({method: 'GET', cache: false, url: ApiEndpoint.url + '/wordpress/wc-api/v3/products?filter[category]=' + encodedCategory + '&filter[limit]=200' }).
     success(function(data, status, headers, config) {
       return data;
     }).

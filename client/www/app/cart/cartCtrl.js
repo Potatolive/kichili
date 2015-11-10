@@ -1,6 +1,6 @@
 angular.module('cart')
 
-.controller('cartCtrl', function($scope, $ionicModal, $ionicLoading, $timeout, $state, $rootScope, cartService, Utils) {
+.controller('cartCtrl', function($scope, $ionicModal, $ionicLoading, $timeout, $state, $rootScope, cartService, regionService, Utils) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -20,6 +20,9 @@ angular.module('cart')
 
   $scope.$on('$ionicView.enter', function(e) {
     $scope.products = cartService.getProducts();
+    console.log(regionService.getPinCode());
+    $scope.deliveryInfo.postcode = Number(regionService.getPinCode());
+
   });
 
   $scope.addQty = function(i) {
@@ -94,7 +97,7 @@ angular.module('cart')
     }
   }
 
-  init();  
+  init();
 
   $scope.placeOrder = function(form) {
     if(form.$valid) {
@@ -105,6 +108,22 @@ angular.module('cart')
       var placedOrder = cartService.placeOrder($scope.deliveryInfo);
       placedOrder.then(
         function(success) {
+          console.log(success);
+
+          var orders
+
+          if(window.localStorage['orders'] && window.localStorage['orders'] != null) {
+             orders = JSON.parse(window.localStorage['orders']);
+          }
+
+          if(!!!orders) {
+            orders = [];
+          }
+
+          orders.push(success.data.order);
+
+          window.localStorage['orders'] = JSON.stringify(orders);
+          
           continueExecution();
           $ionicLoading.hide();
         },

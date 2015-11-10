@@ -4,7 +4,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "https://ec2-52-10-172-118.us-west-2.compute.amazonaws.com",
+      "proxyUrl": "https://ec2-52-88-140-24.us-west-2.compute.amazonaws.com",
       "rejectUnauthorized" : false
     }
    ]

@@ -1,0 +1,13 @@
+<ion-view>
+  <ion-nav-title>
+    <span>Kichili</span>
+  </ion-nav-title>
+  <ion-content>
+    <span class="h3">Select the pincode to order!</span>
+    <ion-list>
+      <ion-item nav-clear menu-close ng-repeat="pincode in pinCodes" class="item-calm" ng-click="go('{{pincode.value}}')">
+        <span ng-bind-html="pincode.value"></span>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
