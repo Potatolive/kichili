@@ -1,0 +1,20 @@
+<ion-view>
+  <ion-nav-title>
+    <span>Kichili</span>
+  </ion-nav-title>
+  <ion-content>
+    <ion-list>
+      <ion-item nav-clear menu-close ng-repeat="category in categories" ng-click="go('{{category.name}}')" style="padding:0px;">
+        <div class="item item-thumbnail-left" style="padding-top: 20px;">
+          <img src="{{category.image}}"></img>
+          <h3><span ng-bind-html="category.name" style="font-size: 24px"></span></h3>
+          <p><span ng-bind-html="category.description"></span></p>
+        </div>
+
+      </ion-item>
+      <!--<ion-item menu-close ng-click="login()" class="item-assertive" ng-controller="loginCtrl">
+          <i class="icon ion-arrow-right-c" style="padding-right: 5px"></i>Login
+        </ion-item>
+      </ion-list>-->
+  </ion-content>
+</ion-view> 

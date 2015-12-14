@@ -2,11 +2,19 @@
   <ion-nav-title>
     <span>Kichili</span>
   </ion-nav-title>
-  <ion-content>
-    <span class="h3">Select the pincode to order!</span>
-    <ion-list>
-      <ion-item nav-clear menu-close ng-repeat="pincode in pinCodes" class="item-calm" ng-click="go('{{pincode.value}}')">
-        <span ng-bind-html="pincode.value"></span>
+  <ion-subheader-bar class="bar bar-subheader">
+    <h1 class="title">Select delivery location!</h1>
+  </ion-subheader-bar>
+  <ion-content class="has-subheader">
+    <div ng-show="error.message" style="background-color: yellow">{{error.message}}</div>
+    <ion-list style="padding: 0px">
+      <ion-item nav-clear menu-close ng-repeat="pincode in pinCodes" class="item-stable" ng-click="go('{{pincode.value}}')">
+        <div class="item item-light">
+          {{pincode.place}}
+          <span class="item-note">
+            {{pincode.value}}
+          </span>
+        </div>
       </ion-item>
     </ion-list>
   </ion-content>

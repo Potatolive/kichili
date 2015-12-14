@@ -4,7 +4,21 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ng-cordova', 'utilities', 'region', 'login', 'categories', 'products', 'cart', 'orderTracking'])
+angular.module('starter', 
+  [
+    'ionic', 
+    'ng-cordova',
+    'angularLazyImg', 
+    'utilities', 
+    'menu',
+    'region', 
+    'login', 
+    'categories', 
+    'products', 
+    'cart', 
+    'confirmation',
+    'orderTracking'
+  ])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,20 +36,26 @@ angular.module('starter', ['ionic', 'ng-cordova', 'utilities', 'region', 'login'
   });
 })
 
+.config(['lazyImgConfigProvider', function(lazyImgConfigProvider){
+    lazyImgConfigProvider.setOptions({
+      offset: 10, // how early you want to load image (default = 100)
+    });
+  }])
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
   .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'app/categories/_menu.html',
-    controller: 'categoriesCtrl'
+    templateUrl: 'app/menu/_menu.html',
+    controller: 'menuCtrl'
   })
 .state('app.categories', {
     url: '/categores',
     views: {
       'menuContent': {
-        templateUrl: 'app/categories/_home.html',
+        templateUrl: 'app/categories/_categories.html',
         controller: 'categoriesCtrl'
       }
     }
@@ -76,6 +96,15 @@ angular.module('starter', ['ionic', 'ng-cordova', 'utilities', 'region', 'login'
         }
       }
   })
+  .state('app.orderConfirmation', {
+      url: '/orderConfirmation',
+      views: {
+        'menuContent': {
+          templateUrl: 'app/orderConfirmation/_orderConfirmation.html',
+          controller: 'confirmationCtrl'
+        }
+      }
+  })
   ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/region');
@@ -113,7 +142,6 @@ angular.module('starter', ['ionic', 'ng-cordova', 'utilities', 'region', 'login'
 
 .constant('ApiEndpoint', {
   urlLocal: 'http://localhost:8100/api',
-  urlRemote: 'https://ec2-52-88-140-24.us-west-2.compute.amazonaws.com',
-  url: 'https://ec2-52-88-140-24.us-west-2.compute.amazonaws.com',
-  authHeader: 'Basic ' + window.btoa('ck_52c09bea2580a0308602af980e13e39a3eef54eb:cs_46d42626408ee30285ccd2841df56d999d0cf682')
+  url: 'https://kichili.azurewebsites.net',
+  authHeader: 'Basic ' + window.btoa('ck_8858d8a06ea8696bfe1fb8896e69e900bc525a27:cs_755fa3e77e0d6ad4a53a990b3df1aea1a54cf21e')
 });

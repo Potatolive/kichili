@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://kichili.azurewebsites.net/ ws://localhost:35729 http://localhost:8100 data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *;script-src 'self' localhost:35729 'unsafe-eval' 'unsafe-inline';">
     <title></title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
@@ -16,6 +17,7 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/firebase/firebase.js"></script>
     <script src="lib/angularfire/dist/angularfire.js"></script>
+    <script src="vendor/angular-lazy-img-master/release/angular-lazy-img.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ng-cordova/dist/ng-cordova.js"></script>
@@ -25,7 +27,8 @@
     <!-- your app's js -->
     <script src="app/shared/Utils.js"></script>
 
-    
+    <script src="app/menu/menuCtrl.js"></script>
+
     <script src="app/login/loginService.js"></script>
     <script src="app/login/loginCtrl.js"></script>
 
@@ -43,6 +46,8 @@
 
     <script src="app/ordertracking/orderTrackingService.js"></script>
     <script src="app/ordertracking/orderTrackingCtrl.js"></script>
+
+    <script src="app/orderConfirmation/confirmationCtrl.js"></script>
 
     <script src="app/app.js"></script>
   </head>

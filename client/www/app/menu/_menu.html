@@ -1,0 +1,34 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-energized" align-title="left">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+  
+  <ion-side-menu side="left">
+    <ion-header-bar class="bar-energized">
+      <h1 class="title">Kichili</h1>
+    </ion-header-bar>
+    <ion-content class="has-header">
+      <ion-list>
+        <ion-item menu-close href="#/app/home" class="item-calm">
+          <i class="icon ion-arrow-right-c" style="padding-right: 5px"></i>Home
+        </ion-item>
+        <ion-item menu-close ng-repeat="category in categories" class="item-calm" href="#/app/products/{{category.name}}">
+          <i class="icon ion-earth" style="padding-right: 5px"></i><span ng-bind-html="category.name"></span>
+        </ion-item>
+        <ion-item menu-close href="#/app/orderTracking" class="item-calm" ng-show="hasOrders()">
+          <i class="icon ion-arrow-right-c" style="padding-right: 5px"></i>Order Tracking
+        </ion-item>
+        <!--<ion-item menu-close ng-click="login()" class="item-assertive">
+          <i class="icon ion-arrow-right-c" style="padding-right: 5px"></i>Login
+        </ion-item>-->
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

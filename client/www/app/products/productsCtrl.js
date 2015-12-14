@@ -9,12 +9,13 @@ angular.module('products')
     $scope.resetSession = false;
     $scope.products = [];
     initData();
-  }
+    console.log('initializing................');
+  };
   
   $scope.init();
 
   $scope.category.categoryId = '';  
-  
+
   if($scope.category && $stateParams.categoryId) {
     $scope.category.categoryId = $stateParams.categoryId;  
   }
@@ -30,14 +31,37 @@ angular.module('products')
 
       $scope.products = productsService.explodeVariation(catalogProducts);
 
-      $state.go($state.current, {}, {reload: true});
+      //$state.go($state.current, {}, {reload: true});
       $ionicLoading.hide();
     });
   }
 
   $scope.isVariationSelectect = function(product) {
-    return (!product.variations || product.variations.length == 0 || (product.variations && product.variations.length > 0 && product.selectedVariation));
-  }
+    return (!product.variations || product.variations.length === 0 || 
+      (product.variations && product.variations.length > 0 && product.selectedVariation));
+  };
+
+  $scope.isInstock = function(product) {
+    var qty = 0;
+
+    if(!!product.qty) qty = Number(product.qty);
+    if(!!product.in_stock && Number(product.stock_quantity) > 0) return true;
+    else return false;
+  };
+
+  $scope.filterProducts = function(item) {
+    if(!!$scope.search) 
+    {
+      var searchText = $scope.search.searchText;
+      if(!!!searchText) return true;
+      if(((!!item.title && item.title.toLowerCase().indexOf(searchText.toLowerCase()) != -1) ||
+        (!!item.short_description && item.short_description.toLowerCase().indexOf(searchText.toLowerCase()) != -1)))
+      {
+        return true;
+      }
+    }
+    return false;
+  };
 
   $scope.selectedVariation = function(product) {
     var price = {"regular_price": product.regular_price, "sale_price": product.sale_price};
@@ -62,7 +86,7 @@ angular.module('products')
       if(!product.selectedVariation) product.qty = 0;
     }
     return price;
-  }
+  };
 
   $scope.cartProducts = function() {
     var products = $scope.products;
@@ -71,10 +95,15 @@ angular.module('products')
         return Number(p.qty) > 0;
       });  
     }
-  }
+  };
 
   $scope.cartTotal = function() {
     var cartProducts = $scope.cartProducts();
+
+    fullCartProds = cartService.getProducts();
+    cartProducts = Utils.arrayUnique(cartProducts.concat(fullCartProds));
+
+
     var total = 0;
     if(cartProducts) {
       cartProducts.forEach(function(product){
@@ -84,19 +113,26 @@ angular.module('products')
     }
     
     return Utils.formatIndianRupee(total);
-  }
-
-  $scope.addQty = function(i) {
-
-    var product = $scope.products[i];
-    if(product.qty) product.qty++;
-    else product.qty = 1;
   };
 
-  $scope.reduceQty = function(i) {
-    var product = $scope.products[i];
+  $scope.addQty = function(product) {
+    //var product = $scope.products[i];
+
+    if(!$scope.isInstock(product)) return;
+
+    if(product.qty) product.qty++;
+    else product.qty = 1;
+
+    product.stock_quantity = Number(product.stock_quantity) - 1;
+  };
+
+  $scope.reduceQty = function(product) {
+    //var product = $scope.products[i];
+    
     if(product.qty > 1) product.qty--;
     else product.qty = 0;
+
+    product.stock_quantity = Number(product.stock_quantity) + 1;
   };
 
   $scope.go = function ( path ) {
@@ -109,6 +145,7 @@ angular.module('products')
 
   $scope.search.searchModeOn = function() {
     $scope.search.searchMode = true;
+    $ionicScrollDelegate.scrollTop();
     focus('searchText');
     $scope.search.searchText = '';
   };
@@ -120,7 +157,6 @@ angular.module('products')
 
   $scope.$on("$stateChangeSuccess", function (event, next, current) {
     if(!$scope.resetSession) {
-      console.log($scope.cartProducts());
       cartService.setProducts($scope.cartProducts());
     }
   });

@@ -8,7 +8,6 @@
       <input id="searchText" type="search" placeholder="search..." ng-model="search.searchText" style="color: black" ng-model-options="{debounce: 250}"/>
       <button class="button icon-right ion-close-round button-clear filter" style="float:right; padding-top: 6px; color:red" ng-click="search.searchModeOff()"></button>
     </label>
-
   </ion-nav-title>
   <ion-nav-buttons side="left">
      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -18,7 +17,35 @@
   </ion-subheader-bar>
   <ion-content class="has-subheader">
     <ion-list>
-      <ion-item ng-repeat="product in products | filter:search.searchText">
+    <div class="list">
+      <ion-item ng-repeat="product in products | filter: filterProducts" style="padding: 0px">
+        <div class="item item-thumbnail-left" style="padding-top: 5px">
+          <img src="img/icon.png" lazy-img="{{product.featured_src}}" style="padding: 0px; width: 100px; height:100px">
+          <h3 style="font-size: 16px">{{product.title}}</h3>
+          <div style="padding: 0px; padding-bottom: 5px">
+          <p ng-bind-html="product.description" style="float: left; padding-right: 10px"></p>
+          <p style="padding-top: 2px">
+            <span style="text-decoration: line-through; color: darkgray" class="disabled">
+              &#8377; {{selectedVariation(product).regular_price}}
+            </span>
+            <span >/ &#8377; {{selectedVariation(product).sale_price}}</span>
+          </p>
+          </div>
+          <button ng-if="(product.qty <= 0 || !product.qty) && isInstock(product)" class="button icon-right ion-plus-circled button-small button-balanced" ng-click="addQty(product)">Add to cart&nbsp;</button>
+          <div ng-if="product.qty > 0">
+            <button class="button icon-left ion-minus-circled button-clear button-assertive " ng-click="reduceQty(product)" style="padding: 0px; position: relative; float: left"></button>
+            <label type="number" ng-bind="product.qty" style="color: red; float: left; text-align: center; padding-top: 12px;"></label>
+            <button ng-class="isInstock(product) ?  'ion-plus-circled' : 'hidden'" class="button icon-right button-clear button-assertive" ng-click="addQty(product)">
+            </button>
+          </div>
+           <div ng-if="!isInstock(product)">
+            <button class="button icon-right button-small button-assertive">Out of stock
+            </button>
+          </div>
+        </div>
+      </ion-item>
+      </div>
+      <!--<ion-item ng-repeat="product in products | filter: filterProducts">
         <div class="row">
           <div class="col-33">
             <img ng-src="{{product.featured_src}}" style="width: 90%; height: auto; max-height: 100px; padding: 5px"></img>
@@ -30,8 +57,8 @@
           </span>
         </div>
         <div class="row">
-          <span class="col" style="font-size: small">
-            {{product.company}}
+          <span class="col" style="font-size: small" ng-bind-html="product.description">
+            
           </span>
         </div>
         <div class="row">
@@ -54,26 +81,30 @@
             <span >/ &#8377; {{selectedVariation(product).sale_price}}</span>
           </div>
         </div>
-        <div class="row" ng-show="isVariationSelectect(product)">
-          <div class="col"></div>
-          <div class="col"></div>
+          <div class="row" ng-show="isVariationSelectect(product)">
+            <div class="col">
+              <button class="button icon-right button-clear button-assertive">
+                <span ng-show="!isInstock(product)" style="position: relative; left:-20px; border-radius: 5px; border-color: red;">Out of stock</span>
+              </button>
+            </div>
+            <div class="col"></div>
             <div class="col">
               <button ng-if="product.qty > 0" class="button icon-left ion-minus-circled button-clear button-assertive " ng-click="reduceQty($index)" style="padding: 0px; position: relative; left: -6px"></button>
             </div>
             <div class="col">
-              <button class="button icon-right ion-plus-circled button-clear button-assertive" ng-click="addQty($index)">
+              <button ng-class="isInstock(product) ?  'ion-plus-circled' : 'hidden'" class="button icon-right button-clear button-assertive" ng-click="addQty($index)">
                 <span ng-if="product.qty > 0" style="position: relative; left:-8px;">{{product.qty}}</span>
-                <span ng-if="product.qty <= 0 || !product.qty" style="position: relative; left:-20px; border-radius: 5px; border-color: red;">Add</span>
+                <span ng-if="(product.qty <= 0 || !product.qty)" style="position: relative; left:-20px; border-radius: 5px; border-color: red;">Add</span>
               </button>
             </div>
           </div>
         </div>
         </div>
-      </ion-item>
+      </ion-item>-->
     </ion-list>
   </ion-content>
-  <ion-footer-bar align-title="left" class="bar-positive" ng-show="(cartProducts()).length > 0">
-    <button class="button icon-left ion-ios-cart button-postive" ng-click="go('appcheckout')">&nbsp;&nbsp;&#8377;{{cartTotal()}}</button>
+  <ion-footer-bar align-title="left" class="bar-positive" ng-show="cartTotal() > 0">
+    <button class="button icon-left ion-ios-cart button-postive" ng-click="go('app.checkout')">&nbsp;&nbsp;&#8377;{{cartTotal()}}</button>
     <h1 class="title" style="font-size: small">Kichili</h1>
     <div class="buttons">
       <a class="button icon-right ion-arrow-right-c button-light" href="#/app/checkout">Checkout

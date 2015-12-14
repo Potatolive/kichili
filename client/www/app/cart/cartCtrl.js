@@ -9,14 +9,13 @@ angular.module('cart')
 
   var init = function() {
     $scope.products = [];
-    cartService.clearProducts();
     $scope.deliveryInfo = {};
     $scope.deliveryInfo.city = "Chennai";
     $scope.deliveryInfo.state = "TN";
     $scope.deliveryInfo.country = "India";
     $scope.deliveryInfo.valid = true;
     $scope.error = {};
-  }
+  };
 
   $scope.$on('$ionicView.enter', function(e) {
     $scope.products = cartService.getProducts();
@@ -38,17 +37,17 @@ angular.module('cart')
   };
 
   $scope.price = function(product) {
-    if (!product.variations || product.variations.length == 0) {
+    if (!product.variations || product.variations.length === 0) {
       return product.sale_price;
     }
     else if (product.variations && product.variations.length > 0 && product.selectedVariation) {
       return product.selectedVariation.sale_price;
     }
-  }
+  };
 
   $scope.totalPrice = function(product) {
     return (Number(product.qty) * Number($scope.price(product))).toFixed(2);
-  }
+  };
 
   $scope.selectedVariation = function(product) {
     var price = {"regular_price": product.regular_price, "sale_price": product.sale_price};
@@ -73,7 +72,7 @@ angular.module('cart')
       if(!product.selectedVariation) product.qty = 0;
     }
     return price;
-  }
+  };
 
   $scope.cartTotal = function() {
     var cartProducts = $scope.products;
@@ -86,7 +85,7 @@ angular.module('cart')
     }
     
     return Utils.formatIndianRupee(total);
-  }
+  };
 
   $scope.cartProducts = function() {
     var products = $scope.products;
@@ -95,7 +94,7 @@ angular.module('cart')
         return Number(p.qty) > 0;
       });  
     }
-  }
+  };
 
   init();
 
@@ -110,10 +109,10 @@ angular.module('cart')
         function(success) {
           console.log(success);
 
-          var orders
+          var orders;
 
-          if(window.localStorage['orders'] && window.localStorage['orders'] != null) {
-             orders = JSON.parse(window.localStorage['orders']);
+          if(window.localStorage.orders && window.localStorage.orders !== null) {
+             orders = JSON.parse(window.localStorage.orders);
           }
 
           if(!!!orders) {
@@ -122,13 +121,14 @@ angular.module('cart')
 
           orders.push(success.data.order);
 
-          window.localStorage['orders'] = JSON.stringify(orders);
-          
+          window.localStorage.orders = JSON.stringify(orders);
+
           continueExecution();
+
           $ionicLoading.hide();
         },
         function(error) {
-          $scope.error.message = "Cannot place order at this moment. Please try later!"
+          $scope.error.message = "Cannot place order at this moment. Please try later!";
           $ionicLoading.hide();
         }
       );
@@ -136,12 +136,14 @@ angular.module('cart')
     else {
       $scope.deliveryInfo.valid = form.$valid;
     }
-  }
+  };
 
   continueExecution = function() {
-    init();
-    $rootScope.$broadcast('resetSessionData');
-    $state.go('app.orderTracking');
-  }
+    $state.go('app.orderConfirmation');
+  };
+
+  $rootScope.$on('resetSessionData', function () {
+    init();     
+  });
 
 });

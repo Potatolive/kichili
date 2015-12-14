@@ -4,11 +4,10 @@ angular.module('region', ['utilities'])
 
   var pinCodes = [
     {value: '600083', place: 'Ashok Nagar'},
-    {value: '600084'},
-    {value: '600085'},
-    {value: '600086'},
-    {value: '600087'},
-    {value: '600088'},
+    {value: '600078', place: 'KK Nagar'},
+    {value: '600033', place: 'West Mambalam'},
+    {value: '600093', place: 'Saligramam'},
+    {value: '600026', place: 'Vadapalani'}
   ];
 
   var region = {

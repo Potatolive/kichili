@@ -1,0 +1,28 @@
+Product Name Tamil,Product Name English,Product Category,SKU-Unique identifier,Regular price,Sale Price,Enable Stock Management,Stock Quantity,Product Short Description,Set Product image path
+Avaraikkai,Avaraikkai (Broad Beans),Vegetables,1,50,45,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/avaraikai-broad-beans.jpg
+Beans,Broad Beans,Vegetables,2,50,45,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/beans.jpg
+Vengayam,Onion,Vegetables,3,30,25,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Onion.jpg
+Beet Root,Beet Root,Vegetables,4,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Beetroot.jpg
+Kathirikkkai,Brinjal,Vegetables,5,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Brinjal.jpg
+Kudaimilagai,Capsicum,Vegetables,6,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Capsicum.jpg
+Carrot,Carrot,Vegetables,7,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/carrot.jpg
+Cauliflower,Cauliflower,Vegetables,8,25,20,yes,100,1 piece,https://s3-us-west-2.amazonaws.com/myfresh/Cauliflower.jpg
+Thengai,Coconut,Vegetables,9,15,15,yes,100,1 piece,https://s3-us-west-2.amazonaws.com/myfresh/Coconut.jpg
+Vellari,Cucumber,Vegetables,10,20,18,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Cucumber.jpg
+Murungaikai,Drumstick,Vegetables,11,45,40,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Cucumber.jpg
+Pachai Kathirikkkai,Tube Brinjal Green,Vegetables,12,45,40,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Green+Brinjal.jpg
+Gundu Kathiri,Brinjal Big,Vegetables,13,45,40,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Brinjal+Big.jpg
+Kallamani Mangai,Bengalore Mango,Vegetables,14,45,40,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Begaloora+Mango.jpg
+Nhattu Kathirikkkai,Brinjal Country,Vegetables,15,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Country+Brinjal.jpg
+Nhattu Kathirikkkai Pachai,Brinjal Country Green,Vegetables,16,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/brinjal-Green+Country.jpg
+Kothavarai,Cluster Beans,Vegetables,17,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Kothavarai.jpg
+Kovakkai,Coccinia,Vegetables,18,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Kovakkai.jpg
+Vendaikkai,Lady Finger,Vegetables,19,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Lady+Finger.jpg
+Poondu,Garlic,Vegetables,20,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/poondu.jpg
+Urulai,Potato,Vegetables,21,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Potato.jpg
+Thakkali Bengalore,English Tomato,Vegetables,22,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Tomato+English.jpg
+Nhattu Thakkali,Country Tomato,Vegetables,23,25,20,yes,100,1 kg,https://s3-us-west-2.amazonaws.com/myfresh/Tomato+Nadu.jpg
+Valaipoo,Banana Flower,Vegetables,24,25,20,yes,20,1 piece,https://s3-us-west-2.amazonaws.com/myfresh/valaipoo.jpg
+Valaithandu,Banana Stem,Vegetables,25,25,20,yes,20,1 piece,https://s3-us-west-2.amazonaws.com/myfresh/valaithandu.jpg
+Valaikkai,Raw Banana,Vegetables,26,25,20,yes,20,1 piece,https://s3-us-west-2.amazonaws.com/myfresh/valakai.jpg
+Senai / Karunai,Elephant Yam,Vegetables,27,25,20,yes,20,1 piece,https://s3-us-west-2.amazonaws.com/myfresh/Yam.jpg

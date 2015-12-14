@@ -44,30 +44,32 @@ angular.module('cart', ['utilities'])
     };
 
   var postOrder = function(order) {
-    $http.defaults.headers.common['Authorization'] = ApiEndpoint.authHeader;
+    $http.defaults.headers.common.Authorization = ApiEndpoint.authHeader;
 
-    return $http({method: 'POST', url: ApiEndpoint.url + '/wordpress/wc-api/v3/orders', data: {'order': order}, headers: {'Content-Type': 'application/json'}}).
+    return $http({method: 'POST', url: ApiEndpoint.url + '/wc-api/v3/orders', data: {'order': order}, headers: {'Content-Type': 'application/json'}}).
     success(function(data, status, headers, config) {
+      products = [];
       return data;
     }).
     error(function(data, status, headers, config) {
-      console.log(data);
       return data;
     });
   };
+
+  /*$rootScope.$on('resetSessionData', function () {
+    clearProducts();
+  });*/
 
   // Might use a resource here that returns a JSON array
   // Some fake testing data
   return {
     setProducts: function(value) {
-      products = Utils.arrayUnique(products.concat(value));
+      if(!!value) {
+        products = Utils.arrayUnique(products.concat(value));  
+      }
     },
     getProducts: function() {
-      if(products) {
-        return products.filter(function (p) {
-          return Number(p.qty) > 0;
-        });  
-      }
+      return products;  
     },
     clearProducts: function() {
       products = [];
@@ -86,7 +88,7 @@ angular.module('cart', ['utilities'])
         if(product.selectedVariation) {
           id = product.selectedVariation.id;
         }
-        lineitem = {"product_id": id, "quantity": product.qty}
+        lineitem = {"product_id": id, "quantity": product.qty};
         order.line_items.push(lineitem);
         console.log(lineitem);
       });
@@ -108,9 +110,4 @@ angular.module('cart', ['utilities'])
       return postOrder(order);
     }
   }; 
-
-  $rootScope.$on('resetSessionData', function () {
-    clearProducts();
-  });
-
 });

@@ -1,10 +1,10 @@
 {
-  "name": "sidemenu-sample",
+  "name": "kichili-onlinestore",
   "app_id": "",
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "https://ec2-52-88-140-24.us-west-2.compute.amazonaws.com",
+      "proxyUrl": "https://kichili.azurewebsites.net/",
       "rejectUnauthorized" : false
     }
    ]

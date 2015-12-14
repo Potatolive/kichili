@@ -6,16 +6,14 @@ var categories;
 
 var getData = function() {
   $http.defaults.headers.common['Authorization'] = ApiEndpoint.authHeader;
+  $http.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   console.log(ApiEndpoint.url + '/products/categories');
-  return $http({method: 'GET', cache: true, url: ApiEndpoint.url + '/wordpress/wc-api/v3/products/categories'}).
+  return $http({method: 'GET', cache: true, url: ApiEndpoint.url + '/wc-api/v3/products/categories'}).
     success(function(data, status, headers, config) {
       return data;
     }).
     error(function(data, status, headers, config) {
-      //alert(data);
-      console.log(data);
-      // called asynchronously if an error occurs
-      // or server returns response with an error status.
+      return data;
     });
   };
 

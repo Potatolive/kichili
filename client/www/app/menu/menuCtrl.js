@@ -1,6 +1,6 @@
-angular.module('categories')
+angular.module('menu', ['utilities'])
 
-.controller('categoriesCtrl', function($scope, $ionicModal, $ionicLoading, $ionicPopup, $timeout, $state, categoriesService) {
+.controller('menuCtrl', function($scope, $ionicModal, $ionicLoading, $timeout, $state, categoriesService, orderTrackingService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -9,28 +9,17 @@ angular.module('categories')
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $ionicLoading.show({
-    template: 'Loading...'
-  });
   var categoriesServicePromise = categoriesService.all();
   categoriesServicePromise.then(function(result) {
     categories = result.data.product_categories;
     $scope.categories = categories;
-    $ionicLoading.hide();
-  }, function(error) {
-    var confirmPopup = $ionicPopup.confirm({
-     title: 'Error',
-     template: JSON.stringify(error)
-   });
-   confirmPopup.then(function(res) {
-     if(res) {
-       console.log('You are sure');
-     } else {
-       console.log('You are not sure');
-     }
-   });
-   $ionicLoading.hide();
   });
+
+  orders = orderTrackingService.getOrders();
+
+  $scope.hasOrders = function() {
+    return (!!orders && orders.length > 0);
+  };
 
   $scope.go = function ( id ) {
     $state.go('app.products', {categoryId: id});

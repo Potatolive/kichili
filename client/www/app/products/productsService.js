@@ -12,7 +12,7 @@ angular.module('products', ['utilities'])
       console.log(encodedCategory);
     }
     
-    return $http({method: 'GET', cache: false, url: ApiEndpoint.url + '/wordpress/wc-api/v3/products?filter[category]=' + encodedCategory + '&filter[limit]=200' }).
+    return $http({method: 'GET', cache: false, url: ApiEndpoint.url + '/wc-api/v3/products?filter[category]=' + encodedCategory + '&filter[limit]=1000' }).
     success(function(data, status, headers, config) {
       return data;
     }).
@@ -26,8 +26,6 @@ angular.module('products', ['utilities'])
   return {
     getData: getData,
     explodeVariation: function(products) {
-
-      console.log('expoding variations');
       products.forEach(function(product){
         var variations = product.variations;
         if(variations) {
@@ -52,7 +50,6 @@ angular.module('products', ['utilities'])
               });
             }
           });
-          console.log(options);
           product.options = options;  
         }
         
