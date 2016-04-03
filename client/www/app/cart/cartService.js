@@ -1,6 +1,6 @@
 angular.module('cart', ['utilities'])
 
-.factory('cartService', function(Utils, $rootScope, $http, ApiEndpoint, Utils) {
+.factory('cartService', function(Utils, $rootScope, $http, ApiEndpoint, Utils, Authentication) {
 
   var products = [];
 
@@ -44,9 +44,17 @@ angular.module('cart', ['utilities'])
     };
 
   var postOrder = function(order) {
-    $http.defaults.headers.common.Authorization = ApiEndpoint.authHeader;
+    //$http.defaults.headers.common.Authorization = ApiEndpoint.authHeader;
 
-    return $http({method: 'POST', url: ApiEndpoint.url + '/wc-api/v3/orders', data: {'order': order}, headers: {'Content-Type': 'application/json'}}).
+    $http.defaults.headers.common['Authorization'] = 'Basic ' + window.btoa(Authentication.ck + ':' + Authentication.cs);
+    $http.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+    var url = ApiEndpoint.url + '/wc-api/v3/orders?consumer_key=' + Authentication.ck + '&consumer_secret=' + Authentication.cs;
+
+
+    return $http({method: 'POST', url: url, data: {'order': order}, headers: {'Content-Type': 'application/json'}}).
+
+
     success(function(data, status, headers, config) {
       products = [];
       return data;

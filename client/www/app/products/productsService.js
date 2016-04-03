@@ -1,9 +1,11 @@
 angular.module('products', ['utilities'])
 
-.factory('productsService', function(Utils, $http, ApiEndpoint) {
+.factory('productsService', function(Utils, $http, ApiEndpoint, Authentication) {
 
   var getData = function(categorId) {
-    $http.defaults.headers.common['Authorization'] = ApiEndpoint.authHeader;
+   $http.defaults.headers.common.Authorization = 'Basic ' + window.btoa(Authentication.ck + ':' + Authentication.cs);
+
+  var url = ApiEndpoint.url + '/wc-api/v3/products?consumer_key=' + Authentication.ck + '&consumer_secret=' + Authentication.cs;
 
     var encodedCategory = '';
 
@@ -12,13 +14,13 @@ angular.module('products', ['utilities'])
       console.log(encodedCategory);
     }
     
-    return $http({method: 'GET', cache: false, url: ApiEndpoint.url + '/wc-api/v3/products?filter[category]=' + encodedCategory + '&filter[limit]=1000' }).
-    success(function(data, status, headers, config) {
-      return data;
-    }).
-    error(function(data, status, headers, config) {
-      console.log(data);
-    });
+    return $http({method: 'GET', cache: true, url: url + '&filter[category]=' + encodedCategory + '&filter[limit]=1000' }).
+      success(function(data, status, headers, config) {
+        return data;
+      }).
+      error(function(data, status, headers, config) {
+        console.log(data);
+      });
   };
 
   // Might use a resource here that returns a JSON array
@@ -26,6 +28,9 @@ angular.module('products', ['utilities'])
   return {
     getData: getData,
     explodeVariation: function(products) {
+
+      if(!products) return products;
+
       products.forEach(function(product){
         var variations = product.variations;
         if(variations) {
@@ -61,11 +66,11 @@ angular.module('products', ['utilities'])
 })
 
 .factory('focus', function($timeout, $window) {
-    return function(id) {
-      $timeout(function() {
-        var element = $window.document.getElementById(id);
-        if(element)
-          element.focus();
-      });
-    };
-  });
+  return function(id) {
+    $timeout(function() {
+      var element = $window.document.getElementById(id);
+      if(element)
+        element.focus();
+    });
+  };
+});

@@ -100,6 +100,8 @@ angular.module('products')
   $scope.cartTotal = function() {
     var cartProducts = $scope.cartProducts();
 
+    if(!cartProducts) cartProducts = [];
+
     fullCartProds = cartService.getProducts();
     cartProducts = Utils.arrayUnique(cartProducts.concat(fullCartProds));
 

@@ -140,8 +140,13 @@ angular.module('starter',
   };
 })
 
+.constant('Authentication', {
+  ck: 'ck_5fa2aee852aa1ab13570b75fa033ac4f53c97bfc',
+  cs: 'cs_51ed7947c1bdfddf838dcb89a97db462a01b6174'
+})
+
 .constant('ApiEndpoint', {
   urlLocal: 'http://localhost:8100/api',
-  url: 'https://kichili.azurewebsites.net',
-  authHeader: 'Basic ' + window.btoa('ck_8858d8a06ea8696bfe1fb8896e69e900bc525a27:cs_755fa3e77e0d6ad4a53a990b3df1aea1a54cf21e')
+  url: 'https://kichili.in',
+  authHeader: 'Basic ' + window.btoa('ck_5fa2aee852aa1ab13570b75fa033ac4f53c97bfc:cs_51ed7947c1bdfddf838dcb89a97db462a01b6174')
 });
