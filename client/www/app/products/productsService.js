@@ -2,6 +2,10 @@ angular.module('products', ['utilities'])
 
 .factory('productsService', function(Utils, $http, ApiEndpoint, Authentication) {
 
+  var pageNumber = -1;
+  var pageSize = 20;
+  var noMoreItemsAvailable = false;
+
   var getData = function(categorId) {
    $http.defaults.headers.common.Authorization = 'Basic ' + window.btoa(Authentication.ck + ':' + Authentication.cs);
 
@@ -14,8 +18,11 @@ angular.module('products', ['utilities'])
       console.log(encodedCategory);
     }
     
-    return $http({method: 'GET', cache: true, url: url + '&filter[category]=' + encodedCategory + '&filter[limit]=1000' }).
+    pageNumber++;
+
+    return $http({method: 'GET', cache: false, url: url + '&filter[category]=' + encodedCategory + '&filter[limit]=' + pageSize + '&page=' + pageNumber }).
       success(function(data, status, headers, config) {
+        if(!data || !data.products || data.products.length == 0) noMoreItemsAvailable = true;
         return data;
       }).
       error(function(data, status, headers, config) {
@@ -26,6 +33,12 @@ angular.module('products', ['utilities'])
   // Might use a resource here that returns a JSON array
   // Some fake testing data
   return {
+    init: function() {
+      pageNumber = 0;
+    },
+    isMoreItemsAvailable: function() {
+      return !noMoreItemsAvailable;
+    },
     getData: getData,
     explodeVariation: function(products) {
 

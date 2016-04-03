@@ -20,18 +20,55 @@ angular.module('products')
     $scope.category.categoryId = $stateParams.categoryId;  
   }
   
+  $scope.noMoreItemsAvailable = false;
+
+  var loading = false;
+
+  $scope.loadMore = function() {
+    if(loading) return;
+    loading = true;
+
+    console.log('1: ' + $scope.products.length);
+
+    var getData = productsService.getData($stateParams.categoryId);
+    getData.then(function(result) {
+      var catalogProducts = result.data.products;
+
+      console.log('2: ' + $scope.products.length);
+      console.log($scope.products);
+
+      //catlogProducts = productsService.explodeVariation(catalogProducts)
+
+      console.log('3: ' + catalogProducts.length);
+      console.log(catalogProducts);
+
+      $scope.products = $scope.products.concat(catalogProducts);
+
+      console.log('4: ' + $scope.products.length);
+      console.log($scope.products);
+
+      console.log('test ....');
+      loading = false;
+      $ionicLoading.hide();
+      $scope.noMoreItemsAvailable = !productsService.isMoreItemsAvailable();
+
+      console.log($scope.noMoreItemsAvailable);
+
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+  }
 
   function initData() { 
     $ionicLoading.show({
       template: 'Loading...'
     });
+    productsService.init();
     var getData = productsService.getData($stateParams.categoryId);
-    getData.then(function(result, $ionicScrollDelegate) {
+    getData.then(function(result) {
       var catalogProducts = result.data.products;
 
       $scope.products = productsService.explodeVariation(catalogProducts);
 
-      //$state.go($state.current, {}, {reload: true});
       $ionicLoading.hide();
     });
   }
@@ -141,7 +178,6 @@ angular.module('products')
     $state.go(path);
   };
 
-
   $scope.search.searchMode = false;
   $scope.search.searchText = '';
 
@@ -167,5 +203,4 @@ angular.module('products')
     $scope.resetSession = true;
     $scope.init();     
   });
-
 });

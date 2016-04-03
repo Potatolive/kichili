@@ -43,3 +43,7 @@ textarea:focus, input:focus {
 	color: red;
 	border: none;
 }
+
+.title {
+	text-align: center
+}

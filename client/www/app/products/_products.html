@@ -102,6 +102,7 @@
         </div>
       </ion-item>-->
     </ion-list>
+    <ion-infinite-scroll ng-if = "!noMoreItemsAvailable" on-infinite = "loadMore()" distance = "10%" immediate-check="false"></ion-infinite-scroll>
   </ion-content>
   <ion-footer-bar align-title="left" class="bar-positive" ng-show="cartTotal() > 0">
     <button class="button icon-left ion-ios-cart button-postive" ng-click="go('app.checkout')">&nbsp;&nbsp;&#8377;{{cartTotal()}}</button>

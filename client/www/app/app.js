@@ -141,12 +141,12 @@ angular.module('starter',
 })
 
 .constant('Authentication', {
-  ck: 'ck_5fa2aee852aa1ab13570b75fa033ac4f53c97bfc',
-  cs: 'cs_51ed7947c1bdfddf838dcb89a97db462a01b6174'
+  ck: 'ck_574d446da3705436234fc13e878c3133199de7bf',
+  cs: 'cs_9c00be4ff0acccf10ac9f7a6249c36e395da9894'
 })
 
 .constant('ApiEndpoint', {
   urlLocal: 'http://localhost:8100/api',
   url: 'https://kichili.in',
-  authHeader: 'Basic ' + window.btoa('ck_5fa2aee852aa1ab13570b75fa033ac4f53c97bfc:cs_51ed7947c1bdfddf838dcb89a97db462a01b6174')
+  authHeader: 'Basic ' + window.btoa('ck_574d446da3705436234fc13e878c3133199de7bf:cs_9c00be4ff0acccf10ac9f7a6249c36e395da9894')
 });
