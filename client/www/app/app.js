@@ -146,7 +146,7 @@ angular.module('starter',
 })
 
 .constant('ApiEndpoint', {
-  urlLocal: 'http://localhost:8100/api',
-  url: 'https://kichili.in',
+  url: 'http://localhost:8100/api',
+  urlRemote: 'https://kichili.in',
   authHeader: 'Basic ' + window.btoa('ck_574d446da3705436234fc13e878c3133199de7bf:cs_9c00be4ff0acccf10ac9f7a6249c36e395da9894')
 });
